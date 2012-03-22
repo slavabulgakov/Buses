@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/detailTripBackBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_bg"
+        android:padding="10dp"
+        android:textColor="#FFFFFF"
+		android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowColor="#000000"
+        android:textSize="15sp" 
+        android:layout_margin="10dp"
+        android:drawableLeft="@drawable/arrow_left"
+        android:text="Уфа Южный АВ - Нефтекамск ч/з Дюртюли" />
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:id="@+id/detailTripLinearLayout"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent" >
+            
+            <TextView
+        android:id="@+id/detailTripNumberTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Номер: 5881"
+        android:textAppearance="?android:attr/textAppearanceMedium" android:layout_marginLeft="10dp"/>
+    
+    <TextView
+        android:id="@+id/detailTripModelTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Автобус: Mersedes Bens(19)"
+        android:textAppearance="?android:attr/textAppearanceMedium" android:layout_marginLeft="10dp"/>
+    
+    <TextView
+        android:id="@+id/detailTripCarrierTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Перевочик: БАЛ"
+        android:textAppearance="?android:attr/textAppearanceMedium" android:layout_marginLeft="10dp"/>
+    
+    <TextView
+        android:id="@+id/detailTripPeriodicityTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Периодичность: Ежедневно"
+        android:textAppearance="?android:attr/textAppearanceMedium" android:layout_marginLeft="10dp" android:layout_marginBottom="20dp"/>
+            
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

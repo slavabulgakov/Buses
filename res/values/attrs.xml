@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ShareControl">
+        <attr name="title" format="string"/>
+        <attr name="backColor" format="color"/>
+	</declare-styleable>
+</resources>

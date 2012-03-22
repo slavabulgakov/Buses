@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relativeLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/listitem_background"
+    android:padding="5dip" >
+
+    <TextView
+        android:id="@+id/txtViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="2dip"
+        android:layout_toRightOf="@+id/imgViewLogo"
+        android:text="17:20 - 21:20"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/txtViewVacantSeats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txtViewTitle"
+        android:layout_below="@+id/txtViewTitle"
+        android:text="19 из 49 мест свободно" />
+
+    <FrameLayout
+        android:id="@+id/frameLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp" >
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/txtViewVacantSeats"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:scaleType="center"
+        android:src="@drawable/arrow_right_little_01" />
+
+    <TextView
+        android:id="@+id/txtViewPriceKop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imageView2"
+        android:layout_toLeftOf="@+id/imageView2"
+        android:text="00"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/txtViewPriceRub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/frameLayout1"
+        android:layout_toLeftOf="@+id/txtViewPriceKop"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="320"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="28sp" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="20dp"
+        android:layout_height="16dp"
+        android:layout_alignBottom="@+id/txtViewVacantSeats"
+        android:layout_alignTop="@+id/txtViewPriceKop"
+        android:layout_toLeftOf="@+id/txtViewPriceRub"
+        android:scaleType="center"
+        android:src="@drawable/rub_02" />
+
+</RelativeLayout>

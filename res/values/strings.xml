@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Автобусы</string>
+    <string name="app_version">Версия 1.0</string>
+    <string name="author">Автор: Булгаков Слава</string>
+    <string name="author_email">E-mail: slavabulgakov@gmail.com</string>
+    <string name="author_email2">slavabulgakov@gmail.com</string>
+    
+    <string name="refresh">Показать</string>
+    <string name="set_date">Установить дату</string>
+    <string name="loading">Загрузка...</string>
+    <string name="loadingSite">Загрузка сайта...</string>
+    <string name="parsing">Парсинг сайта...</string>
+    <string name="from">Уфа Южный АВ</string>
+    <string name="to">Нефтекамск</string>
+    <string name="error">Невозможно отобразить данные</string>
+    
+    <string name="empty_response_title">Нет данных</string>
+    <string name="empty_response_message">По данному запросу отсутствуют данные. Возможно вы ввели не ту дату или направление маршрута.</string>
+    
+    <string name="connection_error_title">Ошибка соединения</string>
+    <string name="connection_error_message">При загрузке данных произошла ошибка. Проверьте ваше подключение к сети.</string>
+    
+    <string name="form_error_title">Запрос введен неверно</string>
+    <string name="form_error_message">Одно или несоклько полей (откуда, куда или дата) введено неверно.</string>
+    
+    <string name="ok">OK</string>
+    <string name="cancel">Отменить</string>
+    <string name="close">Закрыть</string>
+    
+    <string name="rub">руб</string>
+    <string name="kop">коп</string>
+    <string name="title_from">Откуда</string>
+    <string name="title_to">Куда</string>
+    <string name="display">Показать</string>
+    
+    <string name="about">О программе</string>
+    <string name="comment">Отправить отзыв</string>
+    
+    <string name="about_alert_message">Автобусы 1.0\nАвтор: Булгаков Слава\nE-mail: slavabulgakov@gmail.com</string>
+    
+    <string name="of">из</string>
+    <string name="free_seats"> мест свободно</string>
+    <string name="distance">расстояние: </string>
+    <string name="km">км</string>
+    <string name="admob_publisher_id">a14ed6240bc8952</string>
+    
+    <string name="send_btn">Отправить отзыв или сообщить о проблеме</string>
+    
+    <string name="share">Рассказать\nдрузьям:</string>
+    
+    <string name="share_error_title">Ошибка отправки сообщения</string>
+    <string name="share_error_message">При загрузке данных произошла ошибка. Проверьте ваше подключение к сети.</string>
+    <string name="share_error_message_duplicate">При загрузке данных произошла ошибка. Возможно схожее сообщение уже опубликовано.</string>
+    <string name="share_message">Я установил Автобусы! Удобный доступ к расписанию междугородних автобусов Башавтотранса на вашем Android устройстве.</string>
+    <string name="share_cancel_title">Сообщение не опубликовано</string>
+    <string name="share_cancel_message">При публикации сообщение произошла ошибка. Проверьте ваше подключение к сети.</string>
+    <string name="share_success">Сообщение удачно опубликовано. Спасибо, что рассказываете друзьям о Автобусах!</string>
+    
+    <string name="twitter_get_pin_title">Получите номер</string>
+    <string name="twitter_get_pin_message">1. Нажмите Далее\n2. Авторизируйтесь сайте Твиттера\n3. Скопируйте номер</string>
+    <string name="twitter_get_pin_continue_btn">Далее</string>
+    
+    <string name="twitter_enter_pin_title">Введите номер</string>
+    <string name="twitter_enter_pin_message">1. Вставьте номер в поле ниже\n2. Нажмите "ОК"</string>
+    <string name="twitter_enter_pin_get_btn">Получить номер</string>
+    
+    <string name="send_with">Отправить с помощью</string>
+
+</resources>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relativeLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingBottom="0dp"
+     >
+
+    <TextView
+        android:id="@+id/txtDetailTripItemTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/txtViewTrip"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/txtViewTrip"
+        android:layout_marginRight="10dp"
+        android:gravity="center"
+        android:text="09:00 - 09:10"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/txtDetailTripItemName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/txtDetailTripItemTime"
+        android:layout_marginLeft="50dp"
+        android:text="Уфа Южный АВ"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/txtDetailTripItemDistance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txtDetailTripItemName"
+        android:layout_below="@+id/txtDetailTripItemName"
+        android:text="расстояние: 112 км" />
+
+    <ImageView
+        android:id="@+id/imgDetailTripItemImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:scaleType="fitStart"
+        android:src="@drawable/path" />
+
+</RelativeLayout>

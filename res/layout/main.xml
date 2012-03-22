@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+            
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+    android:orientation="vertical" >
+
+    <ImageButton
+        android:id="@+id/mainLogoImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:src="@drawable/logo2_02" android:scaleType="centerCrop" android:layout_marginLeft="10dp" android:layout_marginRight="10dp" android:layout_marginTop="10dp"/>
+
+
+
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/buttonDate"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/btn_bg"
+                android:drawableLeft="@drawable/calendar_02"
+                android:padding="10dp"
+                android:text="25 февр. 2012"
+                android:textColor="#FFFFFF"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowColor="#000000"
+                android:gravity="right|center_vertical"
+                android:textSize="15sp" android:layout_marginLeft="10dp" android:layout_marginTop="10dp">
+            </Button>
+            
+        </LinearLayout>
+
+
+
+
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+
+            <AutoCompleteTextView
+                android:id="@+id/autoCompleteTextViewFrom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/text_view"
+                android:padding="5dp"
+                android:hint="@string/title_from"
+                android:imeOptions="actionNext"
+                android:text="" 
+                android:layout_marginLeft="10dp" 
+                android:layout_marginRight="10dp" 
+                android:layout_marginTop="10dp" 
+                android:inputType="textAutoCorrect|textAutoComplete" 
+                android:focusable="true" 
+                android:singleLine="true">
+            </AutoCompleteTextView>
+
+
+            <AutoCompleteTextView
+                android:id="@+id/autoCompleteTextViewTo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/text_view"
+                android:padding="5dp"
+                android:hint="@string/title_to"
+                android:text="" 
+                android:layout_marginLeft="10dp" 
+                android:layout_marginRight="10dp" 
+                android:layout_marginTop="10dp"
+                android:imeOptions="actionDone" 
+                android:inputType="textAutoCorrect|textAutoComplete" 
+                android:focusable="true" 
+                android:singleLine="true">
+            </AutoCompleteTextView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/refreshBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:padding="15dp"
+        android:text="@string/refresh"
+        android:textSize="20sp"
+        android:drawableLeft="@drawable/cap"
+        android:drawableRight="@drawable/arrow_right"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowColor="#000000"
+        android:gravity="center"
+        android:textColor="#FFFFFF" android:background="@drawable/btn_bg"/>
+
+    <ru.slavabulgakov.buses.ShareControl
+        android:id="@+id/shareControl1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:layout_marginBottom="10dp">
+    </ru.slavabulgakov.buses.ShareControl>
+    
+    <com.google.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/admob_publisher_id"
+        ads:loadAdOnCreate="true"/>
+
+</LinearLayout>
+            
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
