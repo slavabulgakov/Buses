@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -70,7 +71,7 @@ public class MainActivity extends MyActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-        MyApplication app = (MyApplication)getApplicationContext();
+        final MyApplication app = (MyApplication)getApplicationContext();
         
         app.getTwApp().updateAlerts(this);
         
@@ -88,12 +89,26 @@ public class MainActivity extends MyActivity {
         _textViewFrom = (AutoCompleteTextView)findViewById(R.id.autoCompleteTextViewFrom);
         TextViewAdapter myAdapter = new TextViewAdapter(this, android.R.layout.simple_dropdown_item_1line, Direction.FROM);
         _textViewFrom.setAdapter(myAdapter);
-        _textViewFrom.setText(app.getFrom());
+        _textViewFrom.setText(app.getRepresentation().getFrom());
+        _textViewFrom.setOnFocusChangeListener(new OnFocusChangeListener() {
+			
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+				app.getRepresentation().setFrom(_textViewFrom.getText().toString());
+			}
+		});
         
         _textViewTo = (AutoCompleteTextView)findViewById(R.id.autoCompleteTextViewTo);
         TextViewAdapter myAdapter2 = new TextViewAdapter(this, android.R.layout.simple_dropdown_item_1line, Direction.TO);
         _textViewTo.setAdapter(myAdapter2);
-        _textViewTo.setText(app.getTo());
+        _textViewTo.setText(app.getRepresentation().getTo());
+        _textViewTo.setOnFocusChangeListener(new OnFocusChangeListener() {
+			
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+				app.getRepresentation().setTo(_textViewTo.getText().toString());
+			}
+		});
         
         
         Date date = app.getDate();
@@ -114,6 +129,7 @@ public class MainActivity extends MyActivity {
             	String to = _textViewTo.getText().toString();
             	
             	MyApplication app = (MyApplication)getApplicationContext();
+            	app.getRepresentation().setFormData(from, to, date)
 				app.setTo(to);
 				app.setFrom(from);
 				

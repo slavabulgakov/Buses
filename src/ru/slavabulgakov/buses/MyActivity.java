@@ -27,7 +27,7 @@ public class MyActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		
 		MyApplication app = (MyApplication)getApplicationContext();
-		if (app.getProgressDialogShowed()) {
+		if (app.engine.isLoading()) {
 			showProgressDialog();
 		}
 	}
@@ -112,7 +112,7 @@ public class MyActivity extends Activity {
 			
 			public void onCancel(DialogInterface dialog) {
 				MyApplication app = (MyApplication)getApplicationContext();
-				app.cancelLoading();
+				app.engine.cancel();
 			}
 		});
     }
