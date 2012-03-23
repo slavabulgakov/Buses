@@ -67,5 +67,7 @@
     <string name="twitter_enter_pin_get_btn">Получить номер</string>
     
     <string name="send_with">Отправить с помощью</string>
+    
+    <string name="split_str"> из </string>
 
 </resources>

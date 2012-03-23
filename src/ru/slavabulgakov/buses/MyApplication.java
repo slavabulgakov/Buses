@@ -82,7 +82,7 @@ public class MyApplication extends Application {
         		String startTime = element.select("div.time").get(0).text();
             	String endTime = element.select("div.desttime").get(0).text();
             	String[] price = element.select("div.price").get(0).text().split(",");
-            	String[] seat = element.select("div.seat").get(0).text().split(" θη ");
+            	String[] seat = element.select("div.seat").get(0).text().split(getString(R.string.split_str));
             	String detailLink = element.select("div.name").get(0).select("a").attr("href");
             	
             	Trip w = new Trip();
