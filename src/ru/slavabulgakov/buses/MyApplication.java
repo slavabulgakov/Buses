@@ -14,7 +14,7 @@ public class MyApplication extends Application {
 	public MyApplication() {
 		super();
 		_representation = new Representation();
-		_engine = new Engine(_representation);
+		_engine = new Engine(_representation, this);
 	}
 	
 	

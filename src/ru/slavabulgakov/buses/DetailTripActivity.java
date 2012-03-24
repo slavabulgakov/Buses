@@ -2,8 +2,6 @@ package ru.slavabulgakov.buses;
 
 import java.util.ArrayList;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +9,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 public class DetailTripActivity extends MyActivity {
@@ -61,7 +58,7 @@ public class DetailTripActivity extends MyActivity {
 		setContentView(R.layout.detail_trip);
 		
 		MyApplication app = (MyApplication)getApplicationContext();
-		DetailTrip detailTrip = app.getCurrentDetailTrip();
+		DetailTrip detailTrip = app.getRepresentation().getCurrentDetailTrip();
 		
 		loadListData(detailTrip.arrayList);
         

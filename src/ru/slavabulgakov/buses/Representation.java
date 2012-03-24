@@ -18,6 +18,17 @@ public class Representation implements IRepresentation {
 	private ArrayList<Trip> _arrayListScheduleData;
 	private DetailTrip _currentDetailTrip;
 	
+	public void setCurrentActivity(MyActivity activity) {
+		_currentActivity = activity;
+	}
+	
+	public ArrayList<Trip> getArrayListScheduleData() {
+		return _arrayListScheduleData;
+	}
+	
+	public DetailTrip getCurrentDetailTrip() {
+		return _currentDetailTrip;
+	}
 	
 	public void setFrom(String from) {
 		_from = from;
@@ -37,6 +48,9 @@ public class Representation implements IRepresentation {
 		_date = date;
 	}
 	public Date getDate() {
+		if (_date == null) {
+			_date = new Date();
+		}
 		return _date;
 	}
 

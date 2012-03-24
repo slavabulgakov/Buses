@@ -27,12 +27,16 @@ public class Engine {
 	
 	
 	public Boolean isLoading() {
-		return _parserWebPageTask.isLoading();
+		if (_parserWebPageTask != null) {
+			return _parserWebPageTask.isLoading();
+		}
+		return false;
 	}
 	
 	
-	public Engine(IRepresentation representation) {
+	public Engine(IRepresentation representation, Context context) {
 		super();
+		_context = context;
 		_representation = representation;
 	}
 	
@@ -63,6 +67,11 @@ public class Engine {
 		String url = "http://bashauto.ru/booking/?fromName=" + from + "&toName=" + to + "&when=" + getStrDate(date);
 		
 		_parserWebPageTask = new ParserWebPageTask(ParserType.BOOKING_PAGE, _context, _representation);
+		_parserWebPageTask.execute(url);
+	}
+	
+	public void detail_show(String url) {
+		_parserWebPageTask = new ParserWebPageTask(ParserType.DETAIL_PAGE, _context, _representation);
 		_parserWebPageTask.execute(url);
 	}
 	

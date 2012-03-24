@@ -10,7 +10,6 @@ import android.os.AsyncTask;
 import android.widget.EditText;
 import android.widget.Toast;
 import ru.slavabulgakov.buses.R;
-import ru.slavabulgakov.buses.MyApplication.RequestResult;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;

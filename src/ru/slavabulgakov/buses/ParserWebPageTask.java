@@ -34,7 +34,7 @@ public class ParserWebPageTask extends AsyncTask<String, Void, RequestResult> {
 
 	
 	
-	private ParserType _parser;
+	private ParserType _parserType;
 	private Boolean _canceled = false;
 	private Context _context;
 	private IRepresentation _parserCallback;
@@ -46,10 +46,11 @@ public class ParserWebPageTask extends AsyncTask<String, Void, RequestResult> {
 		return _isLoading;
 	}
 	
-	public ParserWebPageTask(ParserType parser, Context context, IRepresentation parserCallback) {
+	public ParserWebPageTask(ParserType parserType, Context context, IRepresentation parserCallback) {
 		super();
-		_parser = parser;
+		_parserType = parserType;
 		_context = context;
+		_parserCallback = parserCallback;
 	}
 	
 	
@@ -148,7 +149,7 @@ public class ParserWebPageTask extends AsyncTask<String, Void, RequestResult> {
 	        Log.i("info", "end download");
 	        
 	        Log.i("info", "start parsing");
-	        switch (_parser) {
+	        switch (_parserType) {
 			case BOOKING_PAGE:
 				_arrayListScheduleData = parserBooking(doc);
 				break;
@@ -162,7 +163,7 @@ public class ParserWebPageTask extends AsyncTask<String, Void, RequestResult> {
 			}
 	        Log.i("info", "end parsing");
 	        
-	        if (_parser == ParserType.BOOKING_PAGE && _arrayListScheduleData == null) {
+	        if (_parserType == ParserType.BOOKING_PAGE && _arrayListScheduleData == null) {
 				return RequestResult.EMPTY_RESPONSE;
 			}
 			
@@ -190,10 +191,10 @@ public class ParserWebPageTask extends AsyncTask<String, Void, RequestResult> {
 		
 		switch (result) {
 		case SUCCESS:
-			if (_parser == ParserType.BOOKING_PAGE) {
-				_parserCallback.onFinishParsing(_arrayListScheduleData, _parser);
-			} else if (_parser == ParserType.DETAIL_PAGE) {
-				_parserCallback.onFinishParsing(_currentDetailTrip, _parser);
+			if (_parserType == ParserType.BOOKING_PAGE) {
+				_parserCallback.onFinishParsing(_arrayListScheduleData, _parserType);
+			} else if (_parserType == ParserType.DETAIL_PAGE) {
+				_parserCallback.onFinishParsing(_currentDetailTrip, _parserType);
 			}
 			break;
 			

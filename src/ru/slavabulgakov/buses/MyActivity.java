@@ -27,7 +27,7 @@ public class MyActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		
 		MyApplication app = (MyApplication)getApplicationContext();
-		if (app.engine.isLoading()) {
+		if (app.getEngine().isLoading()) {
 			showProgressDialog();
 		}
 	}
@@ -65,6 +65,8 @@ public class MyActivity extends Activity {
 	@Override
 	protected void onStart() {
 		super.onStart();
+		MyApplication app = (MyApplication)getApplicationContext();
+		app.getRepresentation().setCurrentActivity(this);
 		FlurryAgent.onStartSession(this, "AR3S77Q2MTMLFLJ2L61J");
 	}
 
@@ -112,7 +114,7 @@ public class MyActivity extends Activity {
 			
 			public void onCancel(DialogInterface dialog) {
 				MyApplication app = (MyApplication)getApplicationContext();
-				app.engine.cancel();
+				app.getEngine().cancel();
 			}
 		});
     }
