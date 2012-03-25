@@ -1,12 +1,9 @@
 package ru.slavabulgakov.buses;
 
+import ru.slavabulgakov.buses.MyApplication.IRepresentation;
 import ru.slavabulgakov.buses.TextViewAdapter.Direction;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import com.facebook.android.Facebook;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -21,13 +18,11 @@ import android.widget.DatePicker;
 import android.widget.ImageButton;
 
 
-public class MainActivity extends MyActivity {
+public class MainActivity extends MyActivity implements IRepresentation {
 	private AutoCompleteTextView _textViewFrom;
 	private AutoCompleteTextView _textViewTo;
 	private DatePickerDialog _datePickerDialog;
 	private Button _dateBtn;
-	private ShareControl _shareControl;
-	private Facebook _facebook;
 	
 	
 	
@@ -36,15 +31,15 @@ public class MainActivity extends MyActivity {
 		SimpleDateFormat dayFormatter = new SimpleDateFormat("dd");
 		SimpleDateFormat monthFormatter = new SimpleDateFormat("MMM");
 		SimpleDateFormat yearFormatter = new SimpleDateFormat("yyyy");
-        String day = String.valueOf(dayFormatter.format(app.getRepresentation().getDate()));
-        String month = String.valueOf(monthFormatter.format(app.getRepresentation().getDate()));
-        String year = String.valueOf(yearFormatter.format(app.getRepresentation().getDate()));
+        String day = String.valueOf(dayFormatter.format(app.getDate()));
+        String month = String.valueOf(monthFormatter.format(app.getDate()));
+        String year = String.valueOf(yearFormatter.format(app.getDate()));
         _dateBtn.setText(Html.fromHtml(day + "<br />" + month + "<br />" + year));
 	}
 	
 	private DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {
 		public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        	((MyApplication)getApplicationContext()).getRepresentation().setDate(new Date(year - 1900, monthOfYear, dayOfMonth));
+        	((MyApplication)getApplicationContext()).setDate(new Date(year - 1900, monthOfYear, dayOfMonth));
         	updateDate();
         	view.updateDate(year, monthOfYear, dayOfMonth);
         }
@@ -55,11 +50,19 @@ public class MainActivity extends MyActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        _facebook.authorizeCallback(requestCode, resultCode, data);
+        MyApplication app = (MyApplication)getApplicationContext();
+        app.getShare().getFacebook().authorizeCallback(requestCode, resultCode, data);
     }
     
-            
+
+	@Override
+	protected void onStart() {
+		MyApplication app = (MyApplication)getApplicationContext();
+		app.getShare().updateAlerts();
+		app.setCurrentActivity(MainActivity.this);
+		super.onStart();
+	}
+
 
 	/** Called when the activity is first created. */
     @Override
@@ -69,10 +72,8 @@ public class MainActivity extends MyActivity {
         
         final MyApplication app = (MyApplication)getApplicationContext();
         
-        app.getTwApp().updateAlerts(this);
-        
-        _shareControl = (ShareControl)findViewById(R.id.shareControl1);
-        _facebook = _shareControl.facebook;
+        ShareView shareView = (ShareView)findViewById(R.id.shareControl1);
+        app.getShare().setShareView(shareView);
                 
         ImageButton logo = (ImageButton)findViewById(R.id.mainLogoImageButton);
         logo.setOnClickListener(new OnClickListener() {
@@ -85,29 +86,29 @@ public class MainActivity extends MyActivity {
         _textViewFrom = (AutoCompleteTextView)findViewById(R.id.autoCompleteTextViewFrom);
         TextViewAdapter myAdapter = new TextViewAdapter(this, android.R.layout.simple_dropdown_item_1line, Direction.FROM);
         _textViewFrom.setAdapter(myAdapter);
-        _textViewFrom.setText(app.getRepresentation().getFrom());
+        _textViewFrom.setText(app.getFrom());
         _textViewFrom.setOnFocusChangeListener(new OnFocusChangeListener() {
 			
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
-				app.getRepresentation().setFrom(_textViewFrom.getText().toString());
+				app.setFrom(_textViewFrom.getText().toString());
 			}
 		});
         
         _textViewTo = (AutoCompleteTextView)findViewById(R.id.autoCompleteTextViewTo);
         TextViewAdapter myAdapter2 = new TextViewAdapter(this, android.R.layout.simple_dropdown_item_1line, Direction.TO);
         _textViewTo.setAdapter(myAdapter2);
-        _textViewTo.setText(app.getRepresentation().getTo());
+        _textViewTo.setText(app.getTo());
         _textViewTo.setOnFocusChangeListener(new OnFocusChangeListener() {
 			
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
-				app.getRepresentation().setTo(_textViewTo.getText().toString());
+				app.setTo(_textViewTo.getText().toString());
 			}
 		});
         
         
-        Date date = app.getRepresentation().getDate();
+        Date date = app.getDate();
         _datePickerDialog = new DatePickerDialog(this, mDateSetListener, date.getYear() + 1900, date.getMonth(), date.getDate());
         _dateBtn = (Button)findViewById(R.id.buttonDate);
         updateDate();
@@ -125,19 +126,59 @@ public class MainActivity extends MyActivity {
             	String to = _textViewTo.getText().toString();
             	
             	MyApplication app = (MyApplication)getApplicationContext();
-            	app.getRepresentation().setFrom(from);
-            	app.getRepresentation().setTo(to);
+            	app.setFrom(from);
+            	app.setTo(to);
 				
 				Date currentDate = new Date();
-				if (from == "" || to == "" || app.getRepresentation().getDate().getYear() < currentDate.getYear() || app.getRepresentation().getDate().getMonth() < currentDate.getMonth() || app.getRepresentation().getDate().getDate() < currentDate.getDate()) {
+				if (from == "" || to == "" || app.getDate().getYear() < currentDate.getYear() || app.getDate().getMonth() < currentDate.getMonth() || app.getDate().getDate() < currentDate.getDate()) {
 					showAlertDialog(R.string.form_error_title, R.string.form_error_message, android.R.drawable.ic_dialog_alert);
 					return;
 				}
             	
-        		app.getEngine().show(from, to, app.getRepresentation().getDate());
+        		app.show(from, to, app.getDate());
             }
         });
     }
+
+
+	@Override
+	public void onFormCheckDataError() {
+		showAlertDialog(R.string.form_error_title, R.string.form_error_message, android.R.drawable.ic_dialog_alert);
+	}
+
+
+	@Override
+	public void onStartParsing() {
+		showProgressDialog();
+	}
+
+
+	@Override
+	public void onFinishParsing() {
+		startActivity(new Intent(this, ResultActivity.class));
+		hideProgressDialog();
+	}
+
+
+	@Override
+	public void onFinishParsingEmpty() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onFinishParsingConnectionError() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onCancelParsing() {
+		// TODO Auto-generated method stub
+		
+	}
     
     
 }

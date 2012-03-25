@@ -9,7 +9,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import ru.slavabulgakov.buses.Engine.IRepresentation;
+import ru.slavabulgakov.buses.MyApplication.IRepresentation;
+
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -36,20 +37,18 @@ public class ParserWebPageTask extends AsyncTask<String, Void, RequestResult> {
 	
 	private ParserType _parserType;
 	private Boolean _canceled = false;
-	private Context _context;
-	private IRepresentation _parserCallback;
-	private ArrayList<Trip> _arrayListScheduleData = null;
-	private DetailTrip _currentDetailTrip;
 	private Boolean _isLoading;
+	private MyApplication _app;
+	private IRepresentation _parserCallback;
 	
 	public Boolean isLoading() {
 		return _isLoading;
 	}
 	
-	public ParserWebPageTask(ParserType parserType, Context context, IRepresentation parserCallback) {
+	public ParserWebPageTask(ParserType parserType, MyApplication app, IRepresentation parserCallback) {
 		super();
 		_parserType = parserType;
-		_context = context;
+		_app = app;
 		_parserCallback = parserCallback;
 	}
 	
@@ -68,7 +67,7 @@ public class ParserWebPageTask extends AsyncTask<String, Void, RequestResult> {
 	    		String startTime = element.select("div.time").get(0).text();
 	        	String endTime = element.select("div.desttime").get(0).text();
 	        	String[] price = element.select("div.price").get(0).text().split(",");
-	        	String[] seat = element.select("div.seat").get(0).text().split(_context.getString(R.string.split_str));
+	        	String[] seat = element.select("div.seat").get(0).text().split(_app.getString(R.string.split_str));
 	        	String detailLink = element.select("div.name").get(0).select("a").attr("href");
 	        	
 	        	Trip w = new Trip();
@@ -151,11 +150,11 @@ public class ParserWebPageTask extends AsyncTask<String, Void, RequestResult> {
 	        Log.i("info", "start parsing");
 	        switch (_parserType) {
 			case BOOKING_PAGE:
-				_arrayListScheduleData = parserBooking(doc);
+				_app.setArrayListScheduleData(parserBooking(doc));
 				break;
 				
 			case DETAIL_PAGE:
-				_currentDetailTrip = parserDetail(doc);
+				_app.setCurrentDetailTrip(parserDetail(doc));
 				break;
 
 			default:
@@ -163,7 +162,7 @@ public class ParserWebPageTask extends AsyncTask<String, Void, RequestResult> {
 			}
 	        Log.i("info", "end parsing");
 	        
-	        if (_parserType == ParserType.BOOKING_PAGE && _arrayListScheduleData == null) {
+	        if (_parserType == ParserType.BOOKING_PAGE && _app.getArrayListScheduleData() == null) {
 				return RequestResult.EMPTY_RESPONSE;
 			}
 			
@@ -191,11 +190,7 @@ public class ParserWebPageTask extends AsyncTask<String, Void, RequestResult> {
 		
 		switch (result) {
 		case SUCCESS:
-			if (_parserType == ParserType.BOOKING_PAGE) {
-				_parserCallback.onFinishParsing(_arrayListScheduleData, _parserType);
-			} else if (_parserType == ParserType.DETAIL_PAGE) {
-				_parserCallback.onFinishParsing(_currentDetailTrip, _parserType);
-			}
+			_parserCallback.onFinishParsing();
 			break;
 			
 		case EMPTY_RESPONSE:

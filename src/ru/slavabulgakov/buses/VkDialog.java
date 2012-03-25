@@ -99,6 +99,7 @@ public class VkDialog extends Dialog{
             super.onReceivedError(view, errorCode, description, failingUrl);
       
             mListener.onError(description);
+            mSpinner.dismiss();
             
             VkDialog.this.dismiss();
         }

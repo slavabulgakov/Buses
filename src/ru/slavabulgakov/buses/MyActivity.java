@@ -11,7 +11,6 @@ import android.content.res.Configuration;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -27,7 +26,7 @@ public class MyActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		
 		MyApplication app = (MyApplication)getApplicationContext();
-		if (app.getEngine().isLoading()) {
+		if (app.isLoading()) {
 			showProgressDialog();
 		}
 	}
@@ -65,8 +64,6 @@ public class MyActivity extends Activity {
 	@Override
 	protected void onStart() {
 		super.onStart();
-		MyApplication app = (MyApplication)getApplicationContext();
-		app.getRepresentation().setCurrentActivity(this);
 		FlurryAgent.onStartSession(this, "AR3S77Q2MTMLFLJ2L61J");
 	}
 
@@ -114,7 +111,7 @@ public class MyActivity extends Activity {
 			
 			public void onCancel(DialogInterface dialog) {
 				MyApplication app = (MyApplication)getApplicationContext();
-				app.getEngine().cancel();
+				app.cancel();
 			}
 		});
     }

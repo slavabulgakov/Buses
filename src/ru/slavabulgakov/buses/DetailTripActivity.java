@@ -58,7 +58,7 @@ public class DetailTripActivity extends MyActivity {
 		setContentView(R.layout.detail_trip);
 		
 		MyApplication app = (MyApplication)getApplicationContext();
-		DetailTrip detailTrip = app.getRepresentation().getCurrentDetailTrip();
+		DetailTrip detailTrip = app.getCurrentDetailTrip();
 		
 		loadListData(detailTrip.arrayList);
         

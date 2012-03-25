@@ -49,7 +49,7 @@ public class TripAdapter extends ArrayAdapter<Trip> {
         holder.txtTime.setText(weather.timeStart + " - " + weather.timeEnd);
         holder.txtPriceRubl.setText(weather.priceRub);
         holder.txtPriceKop.setText(weather.priceKop);
-        holder.txtSeats.setText(weather.freeSeats + getContext().getString(R.string.of) + weather.allSeats + getContext().getString(R.string.free_seats));
+        holder.txtSeats.setText(weather.freeSeats + " " + getContext().getString(R.string.of) + " " + weather.allSeats + " " + getContext().getString(R.string.free_seats));
         
         return row;
     }

@@ -11,16 +11,24 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 public class AboutActivity extends Activity {
-	private ShareControl _shareControl;
+	private ShareView _shareView;
 	private Facebook _facebook;
+	
+	@Override
+	protected void onStart() {
+		MyApplication app = (MyApplication)getApplicationContext();
+		app.getShare().updateAlerts();
+		super.onStart();
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.about);
 		
-		_shareControl = (ShareControl)findViewById(R.id.shareControl1);
-		_facebook = _shareControl.facebook;
+		MyApplication app = (MyApplication)getApplicationContext();
+		_shareView = (ShareView)findViewById(R.id.shareControl1);
+        _facebook = app.getShare().getFacebook();
 		
 		Button send_btn = (Button)findViewById(R.id.aboutSendBtn);
 		send_btn.setOnClickListener(new OnClickListener() {

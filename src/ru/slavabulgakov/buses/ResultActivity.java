@@ -2,6 +2,8 @@ package ru.slavabulgakov.buses;
 
 import java.util.ArrayList;
 
+import ru.slavabulgakov.buses.MyApplication.IRepresentation;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -13,10 +15,17 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class ResultActivity extends MyActivity {
+public class ResultActivity extends MyActivity implements IRepresentation {
 	private ListView _listView;
 	private Button _backBtn;
 	
+	
+	@Override
+	protected void onStart() {
+		MyApplication app = (MyApplication)getApplicationContext();
+		app.setCurrentActivity(this);
+		super.onStart();
+	}
 	
 
 	@Override
@@ -28,7 +37,7 @@ public class ResultActivity extends MyActivity {
 		MyApplication app = (MyApplication)getApplicationContext();
 		
 		_backBtn = (Button)findViewById(R.id.resultBackBtn);
-		_backBtn.setText(app.getRepresentation().getFrom() + " - " + app.getRepresentation().getTo());
+		_backBtn.setText(app.getFrom() + " - " + app.getTo());
 		_backBtn.setOnClickListener(new OnClickListener() {
 			
 			public void onClick(View v) {
@@ -37,16 +46,57 @@ public class ResultActivity extends MyActivity {
 		});
 		
 		_listView = (ListView)findViewById(R.id.resultListView);
-		final ArrayList<Trip> al = app.getRepresentation().getArrayListScheduleData();
+		final ArrayList<Trip> al = app.getArrayListScheduleData();
         TripAdapter adapter = new TripAdapter(ResultActivity.this, R.layout.two_item, al);
 		_listView.setAdapter(adapter);
 		
 		_listView.setOnItemClickListener(new OnItemClickListener() {
 		    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		    	MyApplication app = (MyApplication)getApplicationContext();
-		    	app.getEngine().detail_show("http://bashauto.ru" + al.get(position).detailLink);
+		    	app.detail_show("http://bashauto.ru" + al.get(position).detailLink);
 		    }
 		  });
+	}
+
+
+	@Override
+	public void onFormCheckDataError() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onStartParsing() {
+		showProgressDialog();
+	}
+
+
+	@Override
+	public void onFinishParsing() {
+		startActivity(new Intent(this, DetailTripActivity.class));
+		hideProgressDialog();
+	}
+
+
+	@Override
+	public void onFinishParsingEmpty() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onFinishParsingConnectionError() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onCancelParsing() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

@@ -48,7 +48,7 @@
         android:layout_toLeftOf="@+id/imageView2"
         android:text="00"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textSize="17sp" />
+        android:textSize="17sp" android:layout_marginTop="7dp"/>
 
     <TextView
         android:id="@+id/txtViewPriceRub"
@@ -66,9 +66,9 @@
         android:layout_width="20dp"
         android:layout_height="16dp"
         android:layout_alignBottom="@+id/txtViewVacantSeats"
-        android:layout_alignTop="@+id/txtViewPriceKop"
+        android:layout_alignTop="@+id/txtViewPriceRub"
         android:layout_toLeftOf="@+id/txtViewPriceRub"
         android:scaleType="center"
-        android:src="@drawable/rub_02" />
+        android:src="@drawable/rub_02" android:layout_marginTop="-5dp"/>
 
 </RelativeLayout>

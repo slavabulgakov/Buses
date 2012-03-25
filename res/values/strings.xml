@@ -53,17 +53,17 @@
     <string name="share_error_title">Ошибка отправки сообщения</string>
     <string name="share_error_message">При загрузке данных произошла ошибка. Проверьте ваше подключение к сети.</string>
     <string name="share_error_message_duplicate">При загрузке данных произошла ошибка. Возможно схожее сообщение уже опубликовано.</string>
-    <string name="share_message">Я установил Автобусы! Удобный доступ к расписанию междугородних автобусов Башавтотранса на вашем Android устройстве.</string>
+    <string name="share_message">Я установил Автобусы! Удобный доступ к расписанию междугородних автобусов Башавтотранса на моем телефоне.</string>
     <string name="share_cancel_title">Сообщение не опубликовано</string>
     <string name="share_cancel_message">При публикации сообщение произошла ошибка. Проверьте ваше подключение к сети.</string>
     <string name="share_success">Сообщение удачно опубликовано. Спасибо, что рассказываете друзьям о Автобусах!</string>
     
     <string name="twitter_get_pin_title">Получите номер</string>
-    <string name="twitter_get_pin_message">1. Нажмите Далее\n2. Авторизируйтесь сайте Твиттера\n3. Скопируйте номер</string>
+    <string name="twitter_get_pin_message">Авторизируйтесь сайте Твиттера и скопируйте номер</string>
     <string name="twitter_get_pin_continue_btn">Далее</string>
     
     <string name="twitter_enter_pin_title">Введите номер</string>
-    <string name="twitter_enter_pin_message">1. Вставьте номер в поле ниже\n2. Нажмите "ОК"</string>
+    <string name="twitter_enter_pin_message">Вставьте номер в поле</string>
     <string name="twitter_enter_pin_get_btn">Получить номер</string>
     
     <string name="send_with">Отправить с помощью</string>

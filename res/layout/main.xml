@@ -129,11 +129,12 @@
         android:gravity="center"
         android:textColor="#FFFFFF" android:background="@drawable/btn_bg"/>
 
-    <ru.slavabulgakov.buses.ShareControl
+    <ru.slavabulgakov.buses.ShareView
         android:id="@+id/shareControl1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:layout_marginBottom="10dp">
-    </ru.slavabulgakov.buses.ShareControl>
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" 
+        android:layout_marginBottom="10dp">
+    </ru.slavabulgakov.buses.ShareView>
     
     <com.google.ads.AdView
         android:id="@+id/adView"
