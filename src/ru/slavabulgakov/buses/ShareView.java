@@ -126,6 +126,10 @@ public class ShareView extends LinearLayout implements IShareView {
 			
 		}
 	};
+	
+	public void onFBInvalidKey(String mess) {
+		showAlertDialog("Invalid key", mess, android.R.drawable.ic_dialog_alert);
+	};
 	//=============
 	///////////////
 	

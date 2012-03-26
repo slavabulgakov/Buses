@@ -29,6 +29,7 @@ public class Share {
 		public void onFBErrorDuplicate();
 		public void onFBCanceled();
 		public void onFBSendSuccess();
+		public void onFBInvalidKey(String mess);
 		
 		public void onTwitterGetPin(Share share, String url);
 		public void onTwitterEnterPin(Share share);
@@ -129,6 +130,7 @@ public class Share {
 			public void onFacebookError(FacebookError e) {
 				if (e.getMessage().contains("invalid_key")) {
 					Log.i("into",e.getMessage());
+					_shareView.onFBInvalidKey(e.getMessage());
 				}
 				_shareView.onFBError();
 			}

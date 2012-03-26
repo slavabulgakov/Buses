@@ -39,7 +39,7 @@ public class AboutActivity extends Activity {
 				emailIntent.setType("plain/text");
 				emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{ getString(R.string.author_email2) });
 				emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.app_name) + " for Android " + Build.VERSION.RELEASE + " feedback");
-				emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "\n\n" + "Info: " + Build.MODEL + " " + Build.PRODUCT + " " + Build.MANUFACTURER);
+				emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "\n\n" + "Info: " + Build.MODEL);
 				startActivity(Intent.createChooser(emailIntent, null));
 			}
 		});
