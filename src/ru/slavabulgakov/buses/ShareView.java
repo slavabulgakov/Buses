@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -246,13 +247,16 @@ public class ShareView extends LinearLayout implements IShareView {
 		public void onClick(View v) {
 			final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
 			emailIntent.setType("plain/text");
-			emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Автобусы");
+			emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, R.string.share_message_title);
 			emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, R.string.share_message);
 			_context.startActivity(Intent.createChooser(emailIntent, _context.getString(R.string.send_with)));
 		}
 	};
 	
 	private void setUpViews() {
+		HorizontalScrollView scrollView = (HorizontalScrollView)findViewById(R.id.shareScrollView);
+		scrollView.fullScroll(FOCUS_LEFT);
+		
 		_emailImgBtn = (ImageButton)findViewById(R.id.shareEmailImageButton);
 		_emailImgBtn.setOnClickListener(_emailOnClickListener);
 		

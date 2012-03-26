@@ -63,7 +63,7 @@ public class VkDialog extends Dialog{
         mWebView.setWebViewClient(new VkWebViewClient());
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.loadUrl(mUrl);
-        mSpinner.show();
+//        mSpinner.show();
         mWebView.setLayoutParams(FILL);
         
         mContent.addView(mWebView);
@@ -119,13 +119,13 @@ public class VkDialog extends Dialog{
             	mSpinner.dismiss();
             	return;
             }
-//            mSpinner.show();
+            mSpinner.show();
         }
 
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);      
-//            mSpinner.dismiss();
+            mSpinner.dismiss();
         }
     }
 }

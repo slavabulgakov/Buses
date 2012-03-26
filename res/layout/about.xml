@@ -1,46 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <ScrollView
-        android:id="@+id/scrollView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
         <LinearLayout
-            android:id="@+id/linearLayout1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" android:gravity="center_horizontal" android:orientation="vertical">
+            android:layout_height="wrap_content" android:gravity="center_horizontal" android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/imageView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/app_icon" android:layout_marginTop="20dp"/>
 
             <TextView
-                android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/app_name"
                 android:textAppearance="?android:attr/textAppearanceLarge" android:textSize="30sp"/>
             
             <TextView
-                android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/app_version"/>
 
             <TextView
-                android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/author"/>
 
             <TextView
-                android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/author_email"/>
@@ -60,12 +54,19 @@
         android:gravity="center"
         android:textColor="#FFFFFF" android:layout_marginBottom="10dp" android:layout_marginLeft="10dp" android:layout_marginRight="10dp" android:layout_marginTop="30dp"/>
 
-            <ru.slavabulgakov.buses.ShareControl
-                android:id="@+id/shareControl1"
+			<ru.slavabulgakov.buses.ShareView
+                android:id="@+id/aboutShareControl"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-            </ru.slavabulgakov.buses.ShareControl>
+                android:layout_height="wrap_content" android:layout_marginBottom="10dp">
+            </ru.slavabulgakov.buses.ShareView>
             
+			
+			<com.google.ads.AdView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/admob_publisher_id"
+        ads:loadAdOnCreate="true"/>
             
 
         </LinearLayout>

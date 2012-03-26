@@ -1,29 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:layout_height="match_parent" >
 
     <Button
         android:id="@+id/resultBackBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn_bg"
-        android:padding="10dp"
-        android:textColor="#FFFFFF"
-		android:shadowDx="1"
-        android:shadowDy="1"
-        android:shadowColor="#000000"
-        android:textSize="15sp" 
         android:layout_margin="10dp"
+        android:background="@drawable/btn_bg"
         android:drawableLeft="@drawable/arrow_left"
-        android:text="Уфа Южный АВ - Нефтекамск ч/з Дюртюли" />
+        android:padding="10dp"
+        android:shadowColor="#000000"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:text="Уфа Южный АВ - Нефтекамск ч/з Дюртюли"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp" />
 
     <ListView
         android:id="@+id/resultListView"
         android:layout_width="match_parent"
-        android:layout_margin="5dp"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/resultAdView"
+        android:layout_below="@+id/resultBackBtn"
+        android:layout_margin="5dp" >
     </ListView>
-
-</LinearLayout>
+    
+    <com.google.ads.AdView
+        android:id="@+id/resultAdView"
+       	android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/admob_publisher_id"
+        ads:loadAdOnCreate="true" >
+    </com.google.ads.AdView>
+    
+</RelativeLayout>

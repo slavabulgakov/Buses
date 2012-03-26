@@ -53,6 +53,7 @@
     <string name="share_error_title">Ошибка отправки сообщения</string>
     <string name="share_error_message">При загрузке данных произошла ошибка. Проверьте ваше подключение к сети.</string>
     <string name="share_error_message_duplicate">При загрузке данных произошла ошибка. Возможно схожее сообщение уже опубликовано.</string>
+    <string name="share_message_title">Приложение Автобусы!</string>
     <string name="share_message">Я установил Автобусы! Удобный доступ к расписанию междугородних автобусов Башавтотранса на моем телефоне.</string>
     <string name="share_cancel_title">Сообщение не опубликовано</string>
     <string name="share_cancel_message">При публикации сообщение произошла ошибка. Проверьте ваше подключение к сети.</string>
@@ -69,5 +70,7 @@
     <string name="send_with">Отправить с помощью</string>
     
     <string name="split_str"> из </string>
+    
+    <string name="cancel_loading">Загрузка данных отменена</string>
 
 </resources>

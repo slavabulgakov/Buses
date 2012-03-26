@@ -8,6 +8,7 @@ import java.util.Date;
 
 import ru.slavabulgakov.buses.ParserWebPageTask.ParserType;
 
+import android.app.Activity;
 import android.app.Application;
 
 public class MyApplication extends Application {
@@ -28,7 +29,6 @@ public class MyApplication extends Application {
 	
 	
 	public interface IRepresentation {
-		public void onFormCheckDataError();
 		public void onStartParsing();
 		public void onFinishParsing();
 		public void onFinishParsingEmpty();
@@ -40,11 +40,11 @@ public class MyApplication extends Application {
 	
 	//////////////////////
 	// currentActivity ===
-	private IRepresentation _currentActivity;
-	public IRepresentation getCurrentActivity() {
+	private Activity _currentActivity;
+	public Activity getCurrentActivity() {
 		return _currentActivity;
 	}
-	public void setCurrentActivity(IRepresentation activity) {
+	public void setCurrentActivity(Activity activity) {
 		_currentActivity = activity;
 	}
 	//====================
@@ -70,12 +70,6 @@ public class MyApplication extends Application {
 	
 
 	public void show(String from, String to, Date date) {
-		Date currentDate = new Date();
-		if (from == "" || to == "" || date.getYear() < currentDate.getYear() || date.getMonth() < currentDate.getMonth() || date.getDate() < currentDate.getDate()) {
-			_currentActivity.onFormCheckDataError();
-			return;
-		}
-    	
 		try {
 			from = URLEncoder.encode(from, "UTF-8");
 			to = URLEncoder.encode(to, "UTF-8");
@@ -83,16 +77,14 @@ public class MyApplication extends Application {
 			e.printStackTrace();
 		}
 		
-		
-		
 		String url = "http://bashauto.ru/booking/?fromName=" + from + "&toName=" + to + "&when=" + getStrDate(date);
 		
-		_parserWebPageTask = new ParserWebPageTask(ParserType.BOOKING_PAGE, this, _currentActivity);
+		_parserWebPageTask = new ParserWebPageTask(ParserType.BOOKING_PAGE, this, (IRepresentation)_currentActivity);
 		_parserWebPageTask.execute(url);
 	}
 	
 	public void detail_show(String url) {
-		_parserWebPageTask = new ParserWebPageTask(ParserType.DETAIL_PAGE, this, _currentActivity);
+		_parserWebPageTask = new ParserWebPageTask(ParserType.DETAIL_PAGE, this, (IRepresentation)_currentActivity);
 		_parserWebPageTask.execute(url);
 	}
 	

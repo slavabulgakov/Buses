@@ -59,12 +59,6 @@ public class ResultActivity extends MyActivity implements IRepresentation {
 	}
 
 
-	@Override
-	public void onFormCheckDataError() {
-		// TODO Auto-generated method stub
-		
-	}
-
 
 	@Override
 	public void onStartParsing() {

@@ -12,6 +12,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.facebook.android.DialogError;
@@ -64,7 +65,8 @@ public class Share {
 	private VkApp _vkApp;
 	public void sendMess2VK() {
 		if (_vkApp == null) {
-			_vkApp = new VkApp(_context);
+			MyApplication app = (MyApplication)_context.getApplicationContext();
+			_vkApp = new VkApp((Context)app.getCurrentActivity());
 			_vkApp.setListener(new VkDialogListener() {
 				
 				public void onError(String description) {
@@ -125,6 +127,9 @@ public class Share {
 
 			@Override
 			public void onFacebookError(FacebookError e) {
+				if (e.getMessage().contains("invalid_key")) {
+					Log.i("into",e.getMessage());
+				}
 				_shareView.onFBError();
 			}
 

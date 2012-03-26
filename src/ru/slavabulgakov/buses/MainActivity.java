@@ -7,6 +7,8 @@ import java.util.Date;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.os.Build;
+import android.os.Build.VERSION;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
@@ -16,6 +18,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 
 public class MainActivity extends MyActivity implements IRepresentation {
@@ -72,7 +75,7 @@ public class MainActivity extends MyActivity implements IRepresentation {
         
         final MyApplication app = (MyApplication)getApplicationContext();
         
-        ShareView shareView = (ShareView)findViewById(R.id.shareControl1);
+        ShareView shareView = (ShareView)findViewById(R.id.mainShareControl);
         app.getShare().setShareView(shareView);
                 
         ImageButton logo = (ImageButton)findViewById(R.id.mainLogoImageButton);
@@ -130,7 +133,8 @@ public class MainActivity extends MyActivity implements IRepresentation {
             	app.setTo(to);
 				
 				Date currentDate = new Date();
-				if (from == "" || to == "" || app.getDate().getYear() < currentDate.getYear() || app.getDate().getMonth() < currentDate.getMonth() || app.getDate().getDate() < currentDate.getDate()) {
+				Date date = app.getDate();
+				if (from.isEmpty() || to.isEmpty() || date.getYear() < currentDate.getYear() || date.getMonth() < currentDate.getMonth() || date.getDate() < currentDate.getDate()) {
 					showAlertDialog(R.string.form_error_title, R.string.form_error_message, android.R.drawable.ic_dialog_alert);
 					return;
 				}
@@ -140,11 +144,6 @@ public class MainActivity extends MyActivity implements IRepresentation {
         });
     }
 
-
-	@Override
-	public void onFormCheckDataError() {
-		showAlertDialog(R.string.form_error_title, R.string.form_error_message, android.R.drawable.ic_dialog_alert);
-	}
 
 
 	@Override
@@ -162,22 +161,19 @@ public class MainActivity extends MyActivity implements IRepresentation {
 
 	@Override
 	public void onFinishParsingEmpty() {
-		// TODO Auto-generated method stub
-		
+		showAlertDialog(R.string.empty_response_title, R.string.empty_response_message, android.R.drawable.ic_dialog_alert);
 	}
 
 
 	@Override
 	public void onFinishParsingConnectionError() {
-		// TODO Auto-generated method stub
-		
+		showAlertDialog(R.string.connection_error_title, R.string.connection_error_message, android.R.drawable.ic_dialog_alert);
 	}
 
 
 	@Override
 	public void onCancelParsing() {
-		// TODO Auto-generated method stub
-		
+		Toast.makeText(this, R.string.cancel_loading, 400).show();
 	}
     
     

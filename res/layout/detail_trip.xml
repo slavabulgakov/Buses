@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
 
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
     <Button
         android:id="@+id/detailTripBackBtn"
         android:layout_width="match_parent"
@@ -22,43 +23,61 @@
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_above="@+id/detailTripAdView"
+        android:layout_below="@+id/detailTripBackBtn" >
 
         <LinearLayout
             android:id="@+id/detailTripLinearLayout"
             android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_height="match_parent" >
-            
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
             <TextView
-        android:id="@+id/detailTripNumberTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Номер: 5881"
-        android:textAppearance="?android:attr/textAppearanceMedium" android:layout_marginLeft="10dp"/>
-    
-    <TextView
-        android:id="@+id/detailTripModelTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Автобус: Mersedes Bens(19)"
-        android:textAppearance="?android:attr/textAppearanceMedium" android:layout_marginLeft="10dp"/>
-    
-    <TextView
-        android:id="@+id/detailTripCarrierTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Перевочик: БАЛ"
-        android:textAppearance="?android:attr/textAppearanceMedium" android:layout_marginLeft="10dp"/>
-    
-    <TextView
-        android:id="@+id/detailTripPeriodicityTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Периодичность: Ежедневно"
-        android:textAppearance="?android:attr/textAppearanceMedium" android:layout_marginLeft="10dp" android:layout_marginBottom="20dp"/>
-            
+                android:id="@+id/detailTripNumberTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Номер: 5881"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/detailTripModelTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Автобус: Mersedes Bens(19)"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/detailTripCarrierTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Перевочик: БАЛ"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/detailTripPeriodicityTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="10dp"
+                android:text="Периодичность: Ежедневно"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
         </LinearLayout>
     </ScrollView>
-
-</LinearLayout>
+    
+    <com.google.ads.AdView
+        android:id="@+id/detailTripAdView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/admob_publisher_id"
+        ads:loadAdOnCreate="true" >
+    </com.google.ads.AdView>
+    
+</RelativeLayout>
