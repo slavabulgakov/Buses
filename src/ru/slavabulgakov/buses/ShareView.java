@@ -246,6 +246,10 @@ public class ShareView extends LinearLayout implements IShareView {
 	
 	
 	
+	
+	
+	/////////////
+	// e-mail ===
 	private OnClickListener _emailOnClickListener = new OnClickListener() {
 		
 		public void onClick(View v) {
@@ -256,6 +260,13 @@ public class ShareView extends LinearLayout implements IShareView {
 			_context.startActivity(Intent.createChooser(emailIntent, _context.getString(R.string.send_with)));
 		}
 	};
+	//===========
+	/////////////
+	
+	
+	
+	
+	
 	
 	private void setUpViews() {
 		HorizontalScrollView scrollView = (HorizontalScrollView)findViewById(R.id.shareScrollView);
