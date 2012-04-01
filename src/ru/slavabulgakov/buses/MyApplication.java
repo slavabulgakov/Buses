@@ -170,7 +170,7 @@ public class MyApplication extends Application {
 	}
 	public Date getDate() {
 		if (_date == null) {
-			_date = new Date();
+			_date = new Date(new Date().getYear(), new Date().getMonth(), new Date().getDate());
 		}
 		return _date;
 	}

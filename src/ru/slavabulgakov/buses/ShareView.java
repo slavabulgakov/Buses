@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.graphics.Canvas;
 import android.net.Uri;
 import android.util.AttributeSet;
 import android.view.View;
@@ -23,6 +24,7 @@ public class ShareView extends LinearLayout implements IShareView {
 	private ImageButton _fbImgBtn;
 	private LinearLayout _layout;
 	private Context _context;
+	private HorizontalScrollView _scrollView;
 	
 	private void init(Context context, AttributeSet attrs) {
 		_context = context;
@@ -47,6 +49,15 @@ public class ShareView extends LinearLayout implements IShareView {
 		init(context, attrs);
 	}
 	
+	
+	
+	public void scroll() {
+		_scrollView.scrollBy(1000, 0);
+	}
+	
+	
+
+
 	public void showAlertDialog(int titleId, int messageId, int iconId) {
     	AlertDialog.Builder builder = new AlertDialog.Builder(_context);
 		builder.setMessage(messageId)
@@ -255,8 +266,8 @@ public class ShareView extends LinearLayout implements IShareView {
 		public void onClick(View v) {
 			final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
 			emailIntent.setType("plain/text");
-			emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, R.string.share_message_title);
-			emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, R.string.share_message);
+			emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, _context.getString(R.string.share_message_title));
+			emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, _context.getString(R.string.share_message));
 			_context.startActivity(Intent.createChooser(emailIntent, _context.getString(R.string.send_with)));
 		}
 	};
@@ -269,8 +280,7 @@ public class ShareView extends LinearLayout implements IShareView {
 	
 	
 	private void setUpViews() {
-		HorizontalScrollView scrollView = (HorizontalScrollView)findViewById(R.id.shareScrollView);
-		scrollView.fullScroll(FOCUS_LEFT);
+		_scrollView = (HorizontalScrollView)findViewById(R.id.shareScrollView);
 		
 		_emailImgBtn = (ImageButton)findViewById(R.id.shareEmailImageButton);
 		_emailImgBtn.setOnClickListener(_emailOnClickListener);

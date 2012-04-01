@@ -207,7 +207,7 @@ public class Share {
 		@Override
 		protected TwitterResult doInBackground(Twitter... twitter) {
 			try {
-				twitter[0].updateStatus(_context.getString(R.string.share_message));
+				twitter[0].updateStatus(_context.getString(R.string.share_message_twitter));
 			} catch (TwitterException e) {
 				if (e.getMessage().contains("duplicate")) {
 					return TwitterResult.ERROR_DUPLICATE;

@@ -26,6 +26,7 @@ public class MainActivity extends MyActivity implements IRepresentation {
 	private AutoCompleteTextView _textViewTo;
 	private DatePickerDialog _datePickerDialog;
 	private Button _dateBtn;
+	private ShareView _shareView;
 	
 	
 	
@@ -75,8 +76,8 @@ public class MainActivity extends MyActivity implements IRepresentation {
         
         final MyApplication app = (MyApplication)getApplicationContext();
         
-        ShareView shareView = (ShareView)findViewById(R.id.mainShareControl);
-        app.getShare().setShareView(shareView);
+        _shareView = (ShareView)findViewById(R.id.mainShareControl);
+        app.getShare().setShareView(_shareView);
                 
         ImageButton logo = (ImageButton)findViewById(R.id.mainLogoImageButton);
         logo.setOnClickListener(new OnClickListener() {
@@ -132,9 +133,12 @@ public class MainActivity extends MyActivity implements IRepresentation {
             	app.setFrom(from);
             	app.setTo(to);
 				
-				Date currentDate = new Date();
+				Date currentDate = new Date(new Date().getYear(), new Date().getMonth(), new Date().getDate());
 				Date date = app.getDate();
-				if (from.isEmpty() || to.isEmpty() || date.getYear() < currentDate.getYear() || date.getMonth() < currentDate.getMonth() || date.getDate() < currentDate.getDate()) {
+				
+				if (	from.isEmpty() || 
+						to.isEmpty() || 
+						date.compareTo(currentDate) < 0) {
 					showAlertDialog(R.string.form_error_title, R.string.form_error_message, android.R.drawable.ic_dialog_alert);
 					return;
 				}
