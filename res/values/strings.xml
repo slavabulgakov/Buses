@@ -73,5 +73,7 @@
     <string name="split_str"> из </string>
     
     <string name="cancel_loading">Загрузка данных отменена</string>
+    
+    <string name="about_text">Если вы обнаружите ошибку, то не стесняйтесь, пишите. У меня нет того многообразия устройств, которое есть у вас, чтобы потестировать на них Автобусы :)</string>
 
 </resources>

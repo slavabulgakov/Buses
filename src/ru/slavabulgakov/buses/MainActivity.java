@@ -2,13 +2,12 @@ package ru.slavabulgakov.buses;
 
 import ru.slavabulgakov.buses.MyApplication.IRepresentation;
 import ru.slavabulgakov.buses.TextViewAdapter.Direction;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.os.Build;
-import android.os.Build.VERSION;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
@@ -166,12 +165,14 @@ public class MainActivity extends MyActivity implements IRepresentation {
 	@Override
 	public void onFinishParsingEmpty() {
 		showAlertDialog(R.string.empty_response_title, R.string.empty_response_message, android.R.drawable.ic_dialog_alert);
+		hideProgressDialog();
 	}
 
 
 	@Override
 	public void onFinishParsingConnectionError() {
 		showAlertDialog(R.string.connection_error_title, R.string.connection_error_message, android.R.drawable.ic_dialog_alert);
+		hideProgressDialog();
 	}
 
 
