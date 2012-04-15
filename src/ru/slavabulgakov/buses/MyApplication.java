@@ -1,18 +1,31 @@
 package ru.slavabulgakov.buses;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.jsoup.Connection;
+import org.jsoup.Connection.Method;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+
 import ru.slavabulgakov.buses.ParserWebPageTask.ParserType;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.SharedPreferences;
+import android.util.Log;
 
 public class MyApplication extends Application {
 	private Share _share;
+	
+	public static final String PREF_NAME = "BUSES_PREF";
+	public static final String LOGIN = "LOGIN";
+	public static final String PASSWORD = "PASWWORD";
 	
 	
 	public MyApplication() {
@@ -34,6 +47,13 @@ public class MyApplication extends Application {
 		public void onFinishParsingEmpty();
 		public void onFinishParsingConnectionError();
 		public void onCancelParsing();
+		
+		public void onStartBooking();
+		public void onFinishBookingRequestAuth();
+		public void onFinishBookingAuthSuccess();
+		public void onFinishBookingReqData();
+		public void onFinishBookingAuthDeny();
+		public void onFinishBooking();
 	}
 	
 	
@@ -49,6 +69,24 @@ public class MyApplication extends Application {
 	}
 	//====================
 	//////////////////////
+	
+	
+	
+	//////////////////////
+	// currentPosition ===
+	private int _position;
+	public int getCurrentPosition() {
+		return _position;
+	}
+	public void setCurrentPostion(int position) {
+		_position = position;
+	}
+	//====================
+	//////////////////////
+	
+	
+
+	
 	
 	
 	private ParserWebPageTask _parserWebPageTask;
@@ -176,5 +214,103 @@ public class MyApplication extends Application {
 	}
 	//=========
 	///////////
+	
+	
+	
+	/////////////////////////////////////////////////////////
+	// booking ==============================================
+	
+	//////////////////////
+	//ticket type ===
+	enum TicketType {
+		Fully,
+		Child
+	}
+	private TicketType _ticketType;
+	public TicketType getTicketType() {
+		return _ticketType;
+	}
+	public void setTicketType(TicketType ticketType) {
+		_ticketType = ticketType;
+	}
+	//====================
+	//////////////////////
+
+
+	//////////////////
+	//currentLogin ===
+	private String _login;
+	public String getLogin() {
+		if (_login == null) {
+			SharedPreferences settings = getSharedPreferences(PREF_NAME, 0);
+			_login = settings.getString(LOGIN, null);
+		}
+		return _login;
+	}
+	public void setLogin(String login) {
+		_login = login;
+		SharedPreferences settings = getSharedPreferences(PREF_NAME, 0);
+		SharedPreferences.Editor editor = settings.edit();
+		editor.putString(LOGIN, _login);
+		editor.commit();
+	}
+	//================
+	//////////////////
+
+
+
+	/////////////////////
+	//currentPassword ===
+	private String _password;
+	public String getPassword() {
+		if (_password == null) {
+			SharedPreferences settings = getSharedPreferences(PREF_NAME, 0);
+			_password = settings.getString(PASSWORD, null);
+		}
+		return _password;
+	}
+	public void setPassword(String password) {
+		_password = password;
+		SharedPreferences settings = getSharedPreferences(PREF_NAME, 0);
+		SharedPreferences.Editor editor = settings.edit();
+		editor.putString(PASSWORD, _password);
+		editor.commit();
+	}
+	//================
+	//////////////////
+	
+	
+	
+	private int _bookingStep = 2;
+	public void increaseBookingStep() {
+		_bookingStep++;
+	}
+	public String booking() {
+		BookingTask bookingTask = null;
+		switch (_bookingStep) {
+		case 2:
+			bookingTask = new BookingTask(this, (IRepresentation)_currentActivity, RequestType.STEP2);
+			break;
+			
+		case 3:
+			bookingTask = new BookingTask(this, (IRepresentation)_currentActivity, RequestType.STEP3);
+			break;
+
+		default:
+			break;
+		}
+		
+		bookingTask.execute("");
+		return "";
+	}
+	
+	public String auth() {
+		BookingTask bookingTask = new BookingTask(this, (IRepresentation)_currentActivity, RequestType.AUTH);
+		bookingTask.execute("");
+		return "";
+	}
+	
+	//=======================================================
+	/////////////////////////////////////////////////////////
 	
 }

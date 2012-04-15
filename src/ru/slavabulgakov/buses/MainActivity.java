@@ -180,6 +180,48 @@ public class MainActivity extends MyActivity implements IRepresentation {
 	public void onCancelParsing() {
 		Toast.makeText(this, R.string.cancel_loading, 400).show();
 	}
+
+
+	@Override
+	public void onStartBooking() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onFinishBookingRequestAuth() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onFinishBooking() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onFinishBookingAuthSuccess() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onFinishBookingAuthDeny() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onFinishBookingReqData() {
+		// TODO Auto-generated method stub
+		
+	}
     
     
 }

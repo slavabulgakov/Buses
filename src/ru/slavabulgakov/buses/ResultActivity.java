@@ -54,6 +54,7 @@ public class ResultActivity extends MyActivity implements IRepresentation {
 		    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		    	MyApplication app = (MyApplication)getApplicationContext();
 		    	app.detail_show("http://bashauto.ru" + al.get(position).detailLink);
+		    	app.setCurrentPostion(position);
 		    }
 		  });
 	}
@@ -89,6 +90,48 @@ public class ResultActivity extends MyActivity implements IRepresentation {
 
 	@Override
 	public void onCancelParsing() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onStartBooking() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onFinishBookingRequestAuth() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onFinishBooking() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onFinishBookingAuthSuccess() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onFinishBookingAuthDeny() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onFinishBookingReqData() {
 		// TODO Auto-generated method stub
 		
 	}

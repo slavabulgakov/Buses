@@ -40,6 +40,12 @@
         <activity android:name="AboutActivity"
                   android:label="@string/about" />
         
+        <activity android:name="AuthActivity"
+            	android:theme="@android:style/Theme.NoTitleBar" />
+        
+        <activity android:name="BookingActivity"
+            	android:theme="@android:style/Theme.NoTitleBar" />
+        
     </application>
 
 </manifest>

@@ -5,29 +5,47 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
     
-    <Button
-        android:id="@+id/detailTripBackBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/btn_bg"
-        android:padding="10dp"
-        android:textColor="#FFFFFF"
-		android:shadowDx="1"
-        android:shadowDy="1"
-        android:shadowColor="#000000"
-        android:textSize="15sp" 
-        android:layout_margin="10dp"
-        android:drawableLeft="@drawable/arrow_left"
-        android:text="Уфа Южный АВ - Нефтекамск ч/з Дюртюли" />
+    <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
 
+            <Button
+                android:id="@+id/detailTripBackBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_bg"
+                android:drawableLeft="@drawable/arrow_left2"
+                android:shadowColor="#000000"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:text="@string/back"
+                android:textSize="15sp"
+                android:textColor="#FFFFFF" android:padding="10dp" android:layout_marginBottom="10dp" android:layout_marginLeft="10dp" android:layout_marginTop="10dp"/>
+            
+            <Button
+                android:id="@+id/detailTripBook"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/btn_bg"
+                android:shadowColor="#000000"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:text="@string/book"
+                android:textSize="15sp"
+                android:textColor="#FFFFFF" android:drawableRight="@drawable/arrow_right2" android:lines="1" android:padding="10dp"/>
+
+        </LinearLayout>
+    
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_above="@+id/detailTripAdView"
-        android:layout_below="@+id/detailTripBackBtn" >
-
+        android:layout_below="@+id/linearLayout1" >
+
         <LinearLayout
             android:id="@+id/detailTripLinearLayout"
             android:layout_width="match_parent"
@@ -67,6 +85,7 @@
                 android:text="Периодичность: Ежедневно"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
         </LinearLayout>
+
     </ScrollView>
     
     <com.google.ads.AdView

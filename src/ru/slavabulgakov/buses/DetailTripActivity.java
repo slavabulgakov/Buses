@@ -2,16 +2,21 @@ package ru.slavabulgakov.buses;
 
 import java.util.ArrayList;
 
+import ru.slavabulgakov.buses.MyApplication.IRepresentation;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class DetailTripActivity extends MyActivity {
+public class DetailTripActivity extends MyActivity implements IRepresentation {
 	
 	void loadListData(ArrayList<DetailTripItem> arrayList) {
 		LinearLayout linearLayout = (LinearLayout)findViewById(R.id.detailTripLinearLayout);
@@ -51,6 +56,12 @@ public class DetailTripActivity extends MyActivity {
 		}
 	}
 	
+	@Override
+	protected void onStart() {
+		MyApplication app = (MyApplication)getApplicationContext();
+		app.setCurrentActivity(DetailTripActivity.this);
+		super.onStart();
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +72,17 @@ public class DetailTripActivity extends MyActivity {
 		DetailTrip detailTrip = app.getCurrentDetailTrip();
 		
 		loadListData(detailTrip.arrayList);
+		
+		
+		Button bookBtn = (Button)findViewById(R.id.detailTripBook);
+		bookBtn.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				MyApplication app = (MyApplication)getApplicationContext();
+				app.booking();
+			}
+		});
         
         
 //		ListView listView = (ListView)findViewById(R.id.detailTripListView);
@@ -68,7 +90,6 @@ public class DetailTripActivity extends MyActivity {
 //		listView.setAdapter(adapter);
 		
 		Button backBtn = (Button)findViewById(R.id.detailTripBackBtn);
-		backBtn.setText(detailTrip.tripName);
 		backBtn.setOnClickListener(new OnClickListener() {
 			
 			public void onClick(View v) {
@@ -88,6 +109,79 @@ public class DetailTripActivity extends MyActivity {
 		TextView periodicityTxt = (TextView)findViewById(R.id.detailTripPeriodicityTxt);
 		periodicityTxt.setText(detailTrip.periodicity);
 		
+	}
+
+
+	@Override
+	public void onStartParsing() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onFinishParsing() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onFinishParsingEmpty() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onFinishParsingConnectionError() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onCancelParsing() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onStartBooking() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onFinishBookingRequestAuth() {
+		startActivity(new Intent(this, AuthActivity.class));
+	}
+
+
+	@Override
+	public void onFinishBooking() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onFinishBookingAuthSuccess() {
+		MyApplication app = (MyApplication)getApplicationContext();
+		app.booking();
+	}
+
+	@Override
+	public void onFinishBookingAuthDeny() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onFinishBookingReqData() {
+		startActivity(new Intent(this, BookingActivity.class));
 	}
 	
 }

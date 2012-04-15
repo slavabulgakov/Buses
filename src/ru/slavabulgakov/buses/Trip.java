@@ -10,6 +10,7 @@ public class Trip implements ITrip{
     public String allSeats;
     public String freeSeats;
     public String detailLink;
+    public String bookLink;
     
     public Trip(){
         super();
@@ -45,6 +46,10 @@ public class Trip implements ITrip{
 		
 		if (key.compareTo("detailLink") == 0) {
 			this.detailLink = value;
+		}
+		
+		if (key.compareTo("bookLink") == 0) {
+			this.bookLink = value;
 		}
 	}
 }

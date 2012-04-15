@@ -69,6 +69,7 @@ public class ParserWebPageTask extends AsyncTask<String, Void, RequestResult> {
 	        	String[] price = element.select("div.price").get(0).text().split(",");
 	        	String[] seat = element.select("div.seat").get(0).text().split(_app.getString(R.string.split_str));
 	        	String detailLink = element.select("div.name").get(0).select("a").attr("href");
+	        	String bookLink = element.select("td").get(5).select("a").get(1).attr("href");
 	        	
 	        	Trip w = new Trip();
 	        	w.put("priceRub", price[0]);
@@ -78,6 +79,7 @@ public class ParserWebPageTask extends AsyncTask<String, Void, RequestResult> {
 	        	w.put("allSeats", seat[1]);
 	        	w.put("freeSeats", seat[0]);
 	        	w.put("detailLink", detailLink);
+	        	w.put("bookLink", bookLink);
 	        	arrayList.add(w);
 			} catch (Exception e) {
 				continue;
