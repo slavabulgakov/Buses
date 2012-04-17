@@ -280,6 +280,28 @@ public class MyApplication extends Application {
 	//////////////////
 	
 	
+	/////////////////////
+	//php session id===
+	private String _phpSessId;
+	public String getPhpSessId() {
+		if (_phpSessId == null) {
+			try {
+	    		Connection.Response res = Jsoup.connect("http://bashauto.ru/booking/")
+	    										.method(Method.GET)
+	    										.execute();
+	    		Document doc = res.parse();
+	    		_phpSessId = res.cookie("PHPSESSID");
+	    	} catch (IOException e) {
+	    		e.printStackTrace();
+	    	}
+		}
+		
+		return _phpSessId;
+	}
+	//================
+	//////////////////
+	
+	
 	
 	private int _bookingStep = 2;
 	public void increaseBookingStep() {

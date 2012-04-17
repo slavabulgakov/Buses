@@ -64,8 +64,8 @@ public class BookingTask extends AsyncTask<String, Void, BookingRequestResult> {
 	
 	
 	private String getPhpSessId() {
-		SharedPreferences settings = _app.getSharedPreferences(MyApplication.PREF_NAME, 0);
-	    String phpSessId = settings.getString(PHPSESSID, null);
+//		SharedPreferences settings = _app.getSharedPreferences(MyApplication.PREF_NAME, 0);
+	    String phpSessId = null;//settings.getString(PHPSESSID, null);
 	    Document doc = null;
 	    if (phpSessId == null) {
 	    	try {
@@ -74,9 +74,9 @@ public class BookingTask extends AsyncTask<String, Void, BookingRequestResult> {
 	    										.execute();
 	    		doc = res.parse();
 	    		phpSessId = res.cookie("PHPSESSID");
-	    		SharedPreferences.Editor editor = settings.edit();
-	    		editor.putString(PHPSESSID, phpSessId);
-	    		editor.commit();
+//	    		SharedPreferences.Editor editor = settings.edit();
+//	    		editor.putString(PHPSESSID, phpSessId);
+//	    		editor.commit();
 	    	} catch (IOException e) {
 	    		e.printStackTrace();
 	    	}
@@ -105,7 +105,7 @@ public class BookingTask extends AsyncTask<String, Void, BookingRequestResult> {
 				    								"USER_LOGIN", login, 
 				    								"USER_PASSWORD", password, 
 				    								"Login", "Войти")
-				    						.cookie("PHPSESSID", getPhpSessId())
+				    						.cookie("PHPSESSID", _app.getPhpSessId())
 				    						.execute();
     		Document doc = res.parse();
     		int size = doc.select("input.field[name=USER_LOGIN]").size();
@@ -122,7 +122,7 @@ public class BookingTask extends AsyncTask<String, Void, BookingRequestResult> {
 	private Boolean step2() {
 		Document doc = null;
 		try {
-			String phpSessId = getPhpSessId();
+			String phpSessId = _app.getPhpSessId();
 			Connection.Response res = Jsoup.connect("http://bashauto.ru/booking/")
 				    						.method(Method.POST)
 				    						.data(	"ps", "1", 
@@ -150,7 +150,7 @@ public class BookingTask extends AsyncTask<String, Void, BookingRequestResult> {
 	private Boolean step3() {
 		Document doc = null;
 		try {
-			String phpSessId = getPhpSessId();
+			String phpSessId = _app.getPhpSessId();
 			Connection.Response res = Jsoup.connect("http://bashauto.ru/booking/")
 				    						.method(Method.POST)
 				    						.data(	"legacy", _app.getString(R.string.legacy), 
@@ -178,7 +178,8 @@ public class BookingTask extends AsyncTask<String, Void, BookingRequestResult> {
 			
 			doc = res.parse();
 			
-			
+			url = res.url().toString();
+			String method = res.method().toString();
 			
 			text = doc.text();
 			Elements els = doc.select("span.cd60 font11 tc");
