@@ -13,6 +13,7 @@ import ru.slavabulgakov.buses.MyApplication.IRepresentation;
 
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.util.Log;
 
 enum RequestType {
 	AUTH,
@@ -86,7 +87,7 @@ public class BookingTask extends AsyncTask<String, Void, BookingRequestResult> {
 	
 	private String getSessId() {
 		String bookLink = _app.getArrayListScheduleData().get(_app.getCurrentPosition()).bookLink;
-		String sessId = bookLink.split("sessid=")[0];
+		String sessId = bookLink.split("sessid=")[1];
 		return sessId;
 	}
 	
@@ -162,26 +163,22 @@ public class BookingTask extends AsyncTask<String, Void, BookingRequestResult> {
 				    						.cookie("PHPSESSID", phpSessId)
 				    						.execute();
 			
-			doc = res.parse();
-			String text = doc.text();
-			
 			res = Jsoup.connect("http://bashauto.ru/booking/")
 					.method(Method.POST)
 					.data(	"sessid", getSessId(),
 							"BACK", "",
 							"CurrentStep", "5")
 					.cookie("PHPSESSID", phpSessId)
+					.followRedirects(false)
 					.execute();
 			
 			String url = res.header("Location");
 			int statusCode = res.statusCode();
 			
-			doc = res.parse();
-			
 			url = res.url().toString();
 			String method = res.method().toString();
 			
-			text = doc.text();
+			
 			Elements els = doc.select("span.cd60 font11 tc");
 			int size = els.size();
 			
