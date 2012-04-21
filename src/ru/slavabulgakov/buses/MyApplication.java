@@ -289,7 +289,6 @@ public class MyApplication extends Application {
 	    		Connection.Response res = Jsoup.connect("http://bashauto.ru/booking/")
 	    										.method(Method.GET)
 	    										.execute();
-	    		Document doc = res.parse();
 	    		_phpSessId = res.cookie("PHPSESSID");
 	    	} catch (IOException e) {
 	    		e.printStackTrace();
