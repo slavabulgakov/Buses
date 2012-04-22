@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import org.jsoup.Connection;
+import org.jsoup.Connection.Method;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -140,8 +141,14 @@ public class ParserWebPageTask extends AsyncTask<String, Void, RequestResult> {
 	protected RequestResult doInBackground(String... url) {
 		try {
 			Log.i("info", "start download");
-    		Connection conn = Jsoup.connect(url[0]).timeout(300000);
-	        Document doc = conn.get();
+			String phpSessId = _app.getPhpSessId();
+			Connection.Response res = Jsoup.connect(url[0])
+											.method(Method.GET)
+											.cookie(MyApplication.PHPSESSID, phpSessId)
+											.timeout(300000)
+											.execute();
+			    		
+	        Document doc = res.parse();
 	        
 	        if (_canceled) {
 				return RequestResult.CANCELED;

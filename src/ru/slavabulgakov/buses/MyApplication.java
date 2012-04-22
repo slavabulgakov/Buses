@@ -283,19 +283,21 @@ public class MyApplication extends Application {
 	/////////////////////
 	//php session id===
 	private String _phpSessId;
+	public static final String PHPSESSID = "PHPSESSID";
 	public String getPhpSessId() {
-		if (_phpSessId == null) {
-			try {
-	    		Connection.Response res = Jsoup.connect("http://bashauto.ru/booking/")
-	    										.method(Method.GET)
-	    										.execute();
-	    		_phpSessId = res.cookie("PHPSESSID");
-	    	} catch (IOException e) {
-	    		e.printStackTrace();
-	    	}
-		}
+//		if (_phpSessId == null) {
+//			try {
+//	    		Connection.Response res = Jsoup.connect("http://bashauto.ru/booking/")
+//	    										.method(Method.GET)
+//	    										.timeout(3000000)
+//	    										.execute();
+//	    		_phpSessId = res.cookie("PHPSESSID");
+//	    	} catch (IOException e) {
+//	    		e.printStackTrace();
+//	    	}
+//		}
 		
-		return _phpSessId;
+		return "782c71cfc13ae206d8be179930c57769"; //_phpSessId;
 	}
 	//================
 	//////////////////
