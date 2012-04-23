@@ -91,9 +91,9 @@ public class BookingTask extends AsyncTask<String, Void, BookingRequestResult> {
 	}
 	
 	private String getSessId() {
-//		String bookLink = getBookLink();
-//		String sessId = bookLink.split("sessid=")[1];
-		return "c190e4556dc71e5c8d5d52246ea176fe"; //sessId;
+		String bookLink = getBookLink();
+		String sessId = bookLink.split("sessid=")[1];
+		return sessId;
 	}
 	
 	private Connection getStandartConnection(Connection conn) {
@@ -121,7 +121,7 @@ public class BookingTask extends AsyncTask<String, Void, BookingRequestResult> {
 			return false;
 		}
 		try {
-			Connection.Response res = Jsoup.connect("http://bashauto.ru/booking/?login=yes")
+			Connection.Response res = Jsoup.connect("http://bashauto.ru/?login=yes")
 									.method(Method.POST)
 //									.header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
 //									.header("Accept-Charset", "windows-1251,utf-8;q=0.7,*;q=0.3")
@@ -139,9 +139,9 @@ public class BookingTask extends AsyncTask<String, Void, BookingRequestResult> {
 //									.cookie("__utmc", "141051809")
 //									.cookie("__utmz", "141051809.1333279036.1.1.utmcsr=google|utmccn=(organic)|utmcmd=organic|utmctr=(not%20provided)")
 //									.cookie("_ym_visorc", "w")
-//									.header("Host", "bashauto.ru")
-//									.header("Origin", "http://bashauto.ru")
-//									.referrer("http://bashauto.ru/")
+									.header("Host", "bashauto.ru")
+									.header("Origin", "http://bashauto.ru")
+									.referrer("http://bashauto.ru/")
 //									.userAgent("Mozilla/5.0 (Windows NT 6.1) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.162 Safari/535.19")
 									.data(	"backurl", "%2F", 
 											"AUTH_FORM", "Y", 
@@ -171,7 +171,7 @@ public class BookingTask extends AsyncTask<String, Void, BookingRequestResult> {
 			auth();
 			
 			String phpSessId = _app.getPhpSessId();
-			String bookLink = "http://bashauto.ru/booking/?CurrentStep=2&id=78545f18-801f-11e1-8c43-00304834fd1f&sessid=c190e4556dc71e5c8d5d52246ea176fe"; //getBookLink();
+			String bookLink = getBookLink();
 			Connection.Response res = Jsoup.connect(bookLink)
 				    						.method(Method.GET)
 //				    						.header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
