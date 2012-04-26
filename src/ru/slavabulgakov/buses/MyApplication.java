@@ -16,7 +16,9 @@ import org.jsoup.nodes.Element;
 import ru.slavabulgakov.buses.ParserWebPageTask.ParserType;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Application;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.util.Log;
 
@@ -24,6 +26,7 @@ public class MyApplication extends Application {
 	private Share _share;
 	
 	public static final String PREF_NAME = "BUSES_PREF";
+	public static final String ORDERS_NAME = "ORDERS";
 	public static final String LOGIN = "LOGIN";
 	public static final String PASSWORD = "PASWWORD";
 	
@@ -49,11 +52,10 @@ public class MyApplication extends Application {
 		public void onCancelParsing();
 		
 		public void onStartBooking();
-		public void onFinishBookingRequestAuth();
-		public void onFinishBookingAuthSuccess();
-		public void onFinishBookingReqData();
-		public void onFinishBookingAuthDeny();
-		public void onFinishBooking();
+		public void onFinishAuthSuccess();
+		public void onFinishAuthDeny();
+		public void onFinishBookingSuccess();
+		public void onFinishBookingDeny();
 	}
 	
 	
@@ -227,8 +229,11 @@ public class MyApplication extends Application {
 		Child
 	}
 	private TicketType _ticketType;
-	public TicketType getTicketType() {
-		return _ticketType;
+	public String getTicketType() {
+		if (_ticketType == TicketType.Child) {
+			return "%D0%94%D0%B5%D1%82%D1%81%D0%BA%D0%B8%D0%B9";
+		}
+		return "%D0%9F%D0%BE%D0%BB%D0%BD%D1%8B%D0%B9";
 	}
 	public void setTicketType(TicketType ticketType) {
 		_ticketType = ticketType;
@@ -308,11 +313,12 @@ public class MyApplication extends Application {
 	public void increaseBookingStep() {
 		_bookingStep++;
 	}
-	public String booking() {
+	
+	private void booking2(){
 		BookingTask bookingTask = null;
 		switch (_bookingStep) {
 		case 2:
-			bookingTask = new BookingTask(this, (IRepresentation)_currentActivity, RequestType.STEP2);
+			bookingTask = new BookingTask(this, (IRepresentation)_currentActivity, RequestType.BOOKING);
 			break;
 			
 		case 3:
@@ -324,7 +330,30 @@ public class MyApplication extends Application {
 		}
 		
 		bookingTask.execute("");
-		return "";
+	}
+	
+	public void booking() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(_currentActivity);
+		builder.setTitle(R.string.booking_alert)
+				.setCancelable(true)
+				.setIcon(android.R.drawable.ic_dialog_info)
+				.setPositiveButton(R.string.booking_fully, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						setTicketType(TicketType.Fully);
+						booking2();
+					}
+				})
+				.setPositiveButton(R.string.booking_children, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						setTicketType(TicketType.Child);
+						booking2();
+					}
+				})
+				.setNegativeButton(R.string.cancel, null);
+		AlertDialog alert = builder.create();
+		alert.show();
 	}
 	
 	public String auth() {
@@ -333,6 +362,13 @@ public class MyApplication extends Application {
 		return "";
 	}
 	
+	private String _orderNumber;
+	public void setOrderNumber(String orderNumber){
+		_orderNumber = orderNumber;
+	}
+	public String getOrderNumber() {
+		return _orderNumber;
+	}
 	//=======================================================
 	/////////////////////////////////////////////////////////
 	

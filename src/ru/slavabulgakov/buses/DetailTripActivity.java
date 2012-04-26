@@ -3,13 +3,15 @@ package ru.slavabulgakov.buses;
 import java.util.ArrayList;
 
 import ru.slavabulgakov.buses.MyApplication.IRepresentation;
+import ru.slavabulgakov.buses.MyApplication.TicketType;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -153,35 +155,26 @@ public class DetailTripActivity extends MyActivity implements IRepresentation {
 		
 	}
 
+	@Override
+	public void onFinishAuthSuccess() {
+		// TODO Auto-generated method stub
+		
+	}
 
 	@Override
-	public void onFinishBookingRequestAuth() {
+	public void onFinishAuthDeny() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onFinishBookingSuccess() {
+		startActivity(new Intent(this, BookingActivity.class));
+	}
+
+	@Override
+	public void onFinishBookingDeny() {
 		startActivity(new Intent(this, AuthActivity.class));
 	}
 
-
-	@Override
-	public void onFinishBooking() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void onFinishBookingAuthSuccess() {
-		MyApplication app = (MyApplication)getApplicationContext();
-		app.booking();
-	}
-
-	@Override
-	public void onFinishBookingAuthDeny() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onFinishBookingReqData() {
-		startActivity(new Intent(this, BookingActivity.class));
-	}
-	
 }
