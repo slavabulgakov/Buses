@@ -102,6 +102,10 @@ public class BookingTask extends AsyncTask<String, Void, Boolean> {
 			return false;
 		}
 		
+		if (_cancelled) {
+			return false;
+		}
+		
 		Connection.Response res = Jsoup.connect("http://bashauto.ru/?login=yes")
 				.method(Method.POST)
 //				.header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
@@ -149,6 +153,10 @@ public class BookingTask extends AsyncTask<String, Void, Boolean> {
 		String bookLink = getBookLink();
 		String sessId = getSessId();
 		
+		if (_cancelled) {
+			return false;
+		}
+		
 		Connection.Response res = Jsoup.connect(bookLink)
 			    						.method(Method.GET)
 //			    						.header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
@@ -176,6 +184,10 @@ public class BookingTask extends AsyncTask<String, Void, Boolean> {
 			if (auth()) {
 				return booking();
 			}
+			return false;
+		}
+		
+		if (_cancelled) {
 			return false;
 		}
 		
@@ -207,6 +219,10 @@ public class BookingTask extends AsyncTask<String, Void, Boolean> {
 						"CurrentStep", "3")
 				.timeout(3000000)
 				.execute();
+		
+		if (_cancelled) {
+			return false;
+		}
 //		
 		res = Jsoup.connect("http://bashauto.ru/booking/")
 			    	.method(Method.POST)
@@ -238,6 +254,10 @@ public class BookingTask extends AsyncTask<String, Void, Boolean> {
 			    			"CurrentStep", "4")
 			    	.timeout(3000000)
 			    	.execute();
+		
+		if (_cancelled) {
+			return false;
+		}
 		
 		res = Jsoup.connect("http://bashauto.ru/booking/")
 				.method(Method.POST)
@@ -311,6 +331,11 @@ public class BookingTask extends AsyncTask<String, Void, Boolean> {
 	@Override
 	protected void onPostExecute(Boolean result) {
 		super.onPostExecute(result);
+		
+		if (_cancelled) {
+			_callback.onCancelBooking();
+			return;
+		}
 		
 		switch (_requestType) {
 		case BOOKING:

@@ -2,22 +2,25 @@ package ru.slavabulgakov.buses;
 
 import com.facebook.android.Facebook;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class AboutActivity extends Activity {
+public class AboutActivity extends MyActivity {
 	private Facebook _facebook;
 	
 	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		return false;
+	}
+	
+	@Override
 	protected void onStart() {
-		MyApplication app = (MyApplication)getApplicationContext();
-		app.getShare().updateAlerts();
-		app.setCurrentActivity(this);
+		_app.getShare().updateAlerts();
 		super.onStart();
 	}
 
@@ -26,10 +29,9 @@ public class AboutActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.about);
 		
-		MyApplication app = (MyApplication)getApplicationContext();
 		ShareView shareView = (ShareView)findViewById(R.id.aboutShareControl);
-        app.getShare().setShareView(shareView);
-        _facebook = app.getShare().getFacebook();
+        _app.getShare().setShareView(shareView);
+        _facebook = _app.getShare().getFacebook();
 		
 		Button send_btn = (Button)findViewById(R.id.aboutSendBtn);
 		send_btn.setOnClickListener(new OnClickListener() {

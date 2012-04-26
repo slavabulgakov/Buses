@@ -53,6 +53,7 @@ public class MyApplication extends Application {
 		public void onFinishAuthDeny();
 		public void onFinishBookingSuccess();
 		public void onFinishBookingDeny();
+		public void onCancelBooking();
 		
 		public void setCurrentActivity(Activity activity);
 		public Activity getCurrentActivity();

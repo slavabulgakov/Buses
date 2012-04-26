@@ -13,8 +13,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
-
 import com.facebook.android.DialogError;
 import com.facebook.android.Facebook;
 import com.facebook.android.FacebookError;
@@ -67,7 +65,7 @@ public class Share {
 	public void sendMess2VK() {
 		if (_vkApp == null) {
 			MyApplication app = (MyApplication)_context.getApplicationContext();
-			_vkApp = new VkApp((Context)app.getCurrentActivity());
+			_vkApp = new VkApp((Context)app.getRepresentation().getCurrentActivity());
 			_vkApp.setListener(new VkDialogListener() {
 				
 				public void onError(String description) {

@@ -1,6 +1,5 @@
 package ru.slavabulgakov.buses;
 
-import ru.slavabulgakov.buses.MyApplication.IRepresentation;
 import ru.slavabulgakov.buses.MyApplication.TicketType;
 import android.os.Bundle;
 import android.view.View;
@@ -9,7 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
-public class BookingActivity extends MyActivity implements IRepresentation {
+public class BookingActivity extends MyActivity {
 	private MyApplication _app;
 	private Spinner _spinner;
 
@@ -48,77 +47,4 @@ public class BookingActivity extends MyActivity implements IRepresentation {
 			}
 		});
 	}
-
-	@Override
-	protected void onStart() {
-		super.onStart();
-		_app.setCurrentActivity(this);
-	}
-
-	@Override
-	public void onStartParsing() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onFinishParsing() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onFinishParsingEmpty() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onFinishParsingConnectionError() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onCancelParsing() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onStartBooking() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onFinishBookingRequestAuth() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onFinishBookingAuthSuccess() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onFinishBookingReqData() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onFinishBookingAuthDeny() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onFinishBooking() {
-		// TODO Auto-generated method stub
-		
-	}
-	
 }

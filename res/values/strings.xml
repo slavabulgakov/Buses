@@ -103,5 +103,8 @@
     <string name="booking_alert">Выберите тариф</string>
     <string name="booking_fully">Полный</string>
     <string name="booking_children">Детский</string>
+    
+    <string name="orders_list">Список заказов</string>
+    <string name="home">Домой</string>
 
 </resources>
