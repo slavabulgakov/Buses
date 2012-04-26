@@ -18,15 +18,15 @@ import android.webkit.WebView;
 
 public class MyActivity extends Activity {
 	protected ProgressDialog _progressDialog;
-	
+	protected MyApplication _app;
 	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		MyApplication app = (MyApplication)getApplicationContext();
-		if (app.isLoading()) {
+		_app = (MyApplication)getApplicationContext();
+		if (_app.isLoading()) {
 			showProgressDialog();
 		}
 	}
@@ -65,6 +65,7 @@ public class MyActivity extends Activity {
 	protected void onStart() {
 		super.onStart();
 		FlurryAgent.onStartSession(this, "AR3S77Q2MTMLFLJ2L61J");
+		_app.getRepresentation().setCurrentActivity(this);
 	}
 
 

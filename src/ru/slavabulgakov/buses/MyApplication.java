@@ -10,9 +10,6 @@ import java.util.Date;
 import org.jsoup.Connection;
 import org.jsoup.Connection.Method;
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-
 import ru.slavabulgakov.buses.ParserWebPageTask.ParserType;
 
 import android.app.Activity;
@@ -20,7 +17,6 @@ import android.app.AlertDialog;
 import android.app.Application;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 public class MyApplication extends Application {
 	private Share _share;
@@ -33,6 +29,7 @@ public class MyApplication extends Application {
 	
 	public MyApplication() {
 		super();
+		_representation = new Representation(this);
 	}
 	
 	
@@ -56,22 +53,20 @@ public class MyApplication extends Application {
 		public void onFinishAuthDeny();
 		public void onFinishBookingSuccess();
 		public void onFinishBookingDeny();
+		
+		public void setCurrentActivity(Activity activity);
+		public Activity getCurrentActivity();
 	}
 	
 	
-	
-	//////////////////////
-	// currentActivity ===
-	private Activity _currentActivity;
-	public Activity getCurrentActivity() {
-		return _currentActivity;
+	/////////////////////
+	// Representation ===
+	private IRepresentation _representation;
+	public IRepresentation getRepresentation(){
+		return _representation;
 	}
-	public void setCurrentActivity(Activity activity) {
-		_currentActivity = activity;
-	}
-	//====================
-	//////////////////////
-	
+	//===================
+	/////////////////////
 	
 	
 	//////////////////////
@@ -119,12 +114,12 @@ public class MyApplication extends Application {
 		
 		String url = "http://bashauto.ru/booking/?fromName=" + from + "&toName=" + to + "&when=" + getStrDate(date);
 		
-		_parserWebPageTask = new ParserWebPageTask(ParserType.BOOKING_PAGE, this, (IRepresentation)_currentActivity);
+		_parserWebPageTask = new ParserWebPageTask(ParserType.BOOKING_PAGE, this, _representation);
 		_parserWebPageTask.execute(url);
 	}
 	
 	public void detail_show(String url) {
-		_parserWebPageTask = new ParserWebPageTask(ParserType.DETAIL_PAGE, this, (IRepresentation)_currentActivity);
+		_parserWebPageTask = new ParserWebPageTask(ParserType.DETAIL_PAGE, this, _representation);
 		_parserWebPageTask.execute(url);
 	}
 	
@@ -309,31 +304,14 @@ public class MyApplication extends Application {
 	
 	
 	
-	private int _bookingStep = 2;
-	public void increaseBookingStep() {
-		_bookingStep++;
-	}
-	
 	private void booking2(){
-		BookingTask bookingTask = null;
-		switch (_bookingStep) {
-		case 2:
-			bookingTask = new BookingTask(this, (IRepresentation)_currentActivity, RequestType.BOOKING);
-			break;
-			
-		case 3:
-			bookingTask = new BookingTask(this, (IRepresentation)_currentActivity, RequestType.STEP3);
-			break;
-
-		default:
-			break;
-		}
-		
+		BookingTask bookingTask = new BookingTask(this, _representation, RequestType.BOOKING);
 		bookingTask.execute("");
 	}
 	
 	public void booking() {
-		AlertDialog.Builder builder = new AlertDialog.Builder(_currentActivity);
+		_bookingIsGoing = true;
+		AlertDialog.Builder builder = new AlertDialog.Builder(_representation.getCurrentActivity());
 		builder.setTitle(R.string.booking_alert)
 				.setCancelable(true)
 				.setIcon(android.R.drawable.ic_dialog_info)
@@ -357,7 +335,7 @@ public class MyApplication extends Application {
 	}
 	
 	public String auth() {
-		BookingTask bookingTask = new BookingTask(this, (IRepresentation)_currentActivity, RequestType.AUTH);
+		BookingTask bookingTask = new BookingTask(this, _representation, RequestType.AUTH);
 		bookingTask.execute("");
 		return "";
 	}
@@ -368,6 +346,14 @@ public class MyApplication extends Application {
 	}
 	public String getOrderNumber() {
 		return _orderNumber;
+	}
+	
+	private Boolean _bookingIsGoing;
+	public void setBookingIsGoing(Boolean bookingIsGoing){
+		_bookingIsGoing = bookingIsGoing;
+	}
+	public Boolean getBookingIsGoing(){
+		return _bookingIsGoing;
 	}
 	//=======================================================
 	/////////////////////////////////////////////////////////

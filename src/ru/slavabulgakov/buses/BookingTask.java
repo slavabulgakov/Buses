@@ -95,25 +95,6 @@ public class BookingTask extends AsyncTask<String, Void, Boolean> {
 		return sessId;
 	}
 	
-	private Connection getStandartConnection(Connection conn) {
-		return conn.header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
-					.header("Accept-Charset", "windows-1251,utf-8;q=0.7,*;q=0.3")
-					.header("Accept-Encoding", "gzip,deflate,sdch")
-					.header("Accept-Language", "ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4")
-					.header("Connection", "keep-alive")
-					.cookie("PHPSESSID", _app.getPhpSessId())
-					.cookie("BITRIX_SM_SOUND_LOGIN_PLAYED", "Y")
-					.cookie("BITRIX_SM_LOGIN", _app.getLogin())
-					.cookie("__utma", "141051809.1702567638.1333279036.1335008606.1335012401.26")
-					.cookie("__utmb", "141051809.30.10.1335012401")
-					.cookie("__utmc", "141051809")
-					.cookie("__utmz", "141051809.1333279036.1.1.utmcsr=google|utmccn=(organic)|utmcmd=organic|utmctr=(not%20provided)")
-					.cookie("_ym_visorc", "w")
-					.header("Host", "bashauto.ru")
-					.userAgent("Mozilla/5.0 (Windows NT 6.1) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.162 Safari/535.19");
-	}
-	
-	
 	private Boolean auth() throws IOException {
 		String login = _app.getLogin();
 		String password = _app.getPassword();
@@ -303,7 +284,7 @@ public class BookingTask extends AsyncTask<String, Void, Boolean> {
 		doc = res.parse();
 		String orderNumber = doc.select("span.cd60 font11 tc").get(0).text();
 		_app.setOrderNumber(orderNumber);
-
+		
 		return true;
 	}
 		
@@ -331,47 +312,26 @@ public class BookingTask extends AsyncTask<String, Void, Boolean> {
 	protected void onPostExecute(Boolean result) {
 		super.onPostExecute(result);
 		
-		if (!result) {
-			_app.startActivity(new Intent(_app.getCurrentActivity(), AuthActivity.class));
-		}
-		
 		switch (_requestType) {
 		case BOOKING:
+			if (result) {
+				_app.setBookingIsGoing(false);
+				_callback.onFinishBookingSuccess();
+			} else {
+				_callback.onFinishBookingDeny();
+			}
+			break;
+			
+		case AUTH:
 			if (result) {
 				_callback.onFinishAuthSuccess();
 			} else {
 				_callback.onFinishAuthDeny();
 			}
 			break;
-			
-		case AUTH:
-			if (result) {
-				_app.getCurrentActivity().finish();
-			}
-			break;
 
 		default:
-			break;
-		}
-		
-		switch (result) {
-		case REQ_AUTH:
-			
-			break;
-			
-		case AUTH_SUCCESS:
-			_callback.onFinishBookingAuthSuccess();
-			break;
-			
-		case NEXT:
-			_app.increaseBookingStep();
-			_app.startActivity(new Intent(_app.getCurrentActivity(), BookingActivity.class));
-			break;
-
-		default:
-			_callback.onFinishBooking();
 			break;
 		}
 	}
-
 }

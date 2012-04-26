@@ -79,6 +79,9 @@
     <string name="book">Бронировать</string>
     
     <string name="auth">Авторизация</string>
+    <string name="auth_success">Авторизация выполнена успешно</string>
+    <string name="auth_deny_title">Ошибка авторизации</string>
+    <string name="auth_deny_mess">Возможно неверно введены логин или пароль</string>
     
     <string name="back">Назад</string>
     <string name="done">Готово</string>

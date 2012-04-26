@@ -2,23 +2,16 @@ package ru.slavabulgakov.buses;
 
 import java.util.ArrayList;
 
-import ru.slavabulgakov.buses.MyApplication.IRepresentation;
-import ru.slavabulgakov.buses.MyApplication.TicketType;
-
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class DetailTripActivity extends MyActivity implements IRepresentation {
+public class DetailTripActivity extends MyActivity {
 	
 	void loadListData(ArrayList<DetailTripItem> arrayList) {
 		LinearLayout linearLayout = (LinearLayout)findViewById(R.id.detailTripLinearLayout);
@@ -60,8 +53,6 @@ public class DetailTripActivity extends MyActivity implements IRepresentation {
 	
 	@Override
 	protected void onStart() {
-		MyApplication app = (MyApplication)getApplicationContext();
-		app.setCurrentActivity(DetailTripActivity.this);
 		super.onStart();
 	}
 
@@ -112,69 +103,4 @@ public class DetailTripActivity extends MyActivity implements IRepresentation {
 		periodicityTxt.setText(detailTrip.periodicity);
 		
 	}
-
-
-	@Override
-	public void onStartParsing() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void onFinishParsing() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void onFinishParsingEmpty() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void onFinishParsingConnectionError() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void onCancelParsing() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void onStartBooking() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onFinishAuthSuccess() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onFinishAuthDeny() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onFinishBookingSuccess() {
-		startActivity(new Intent(this, BookingActivity.class));
-	}
-
-	@Override
-	public void onFinishBookingDeny() {
-		startActivity(new Intent(this, AuthActivity.class));
-	}
-
 }

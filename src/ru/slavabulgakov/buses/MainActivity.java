@@ -1,6 +1,5 @@
 package ru.slavabulgakov.buses;
 
-import ru.slavabulgakov.buses.MyApplication.IRepresentation;
 import ru.slavabulgakov.buses.TextViewAdapter.Direction;
 
 import java.text.SimpleDateFormat;
@@ -17,16 +16,15 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 
-public class MainActivity extends MyActivity implements IRepresentation {
+public class MainActivity extends MyActivity {
 	private AutoCompleteTextView _textViewFrom;
 	private AutoCompleteTextView _textViewTo;
 	private DatePickerDialog _datePickerDialog;
 	private Button _dateBtn;
 	private ShareView _shareView;
-	
+	private MyApplication _app;
 	
 	
 	private void updateDate() {
@@ -60,9 +58,7 @@ public class MainActivity extends MyActivity implements IRepresentation {
 
 	@Override
 	protected void onStart() {
-		MyApplication app = (MyApplication)getApplicationContext();
-		app.getShare().updateAlerts();
-		app.setCurrentActivity(MainActivity.this);
+		_app.getShare().updateAlerts();
 		super.onStart();
 	}
 
@@ -72,6 +68,8 @@ public class MainActivity extends MyActivity implements IRepresentation {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        
+        _app = (MyApplication)getApplicationContext();
         
         final MyApplication app = (MyApplication)getApplicationContext();
         
@@ -146,82 +144,4 @@ public class MainActivity extends MyActivity implements IRepresentation {
             }
         });
     }
-
-
-
-	@Override
-	public void onStartParsing() {
-		showProgressDialog();
-	}
-
-
-	@Override
-	public void onFinishParsing() {
-		startActivity(new Intent(this, ResultActivity.class));
-		hideProgressDialog();
-	}
-
-
-	@Override
-	public void onFinishParsingEmpty() {
-		showAlertDialog(R.string.empty_response_title, R.string.empty_response_message, android.R.drawable.ic_dialog_alert);
-		hideProgressDialog();
-	}
-
-
-	@Override
-	public void onFinishParsingConnectionError() {
-		showAlertDialog(R.string.connection_error_title, R.string.connection_error_message, android.R.drawable.ic_dialog_alert);
-		hideProgressDialog();
-	}
-
-
-	@Override
-	public void onCancelParsing() {
-		Toast.makeText(this, R.string.cancel_loading, 400).show();
-	}
-
-
-	@Override
-	public void onStartBooking() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void onFinishBookingRequestAuth() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void onFinishBooking() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void onFinishBookingAuthSuccess() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void onFinishBookingAuthDeny() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void onFinishBookingReqData() {
-		// TODO Auto-generated method stub
-		
-	}
-    
-    
 }
