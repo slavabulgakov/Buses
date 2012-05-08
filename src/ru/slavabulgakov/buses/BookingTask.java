@@ -1,21 +1,13 @@
 package ru.slavabulgakov.buses;
 
 import java.io.IOException;
-import java.net.URLEncoder;
-
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.Connection.Method;
 import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
-
 import ru.slavabulgakov.buses.MyApplication.IRepresentation;
 
-import android.R.bool;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.util.Log;
 
 enum RequestType {
 	AUTH,

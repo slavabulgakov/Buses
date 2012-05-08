@@ -80,13 +80,18 @@ public class Representation implements IRepresentation {
 	@Override
 	public void onFinishBookingSuccess() {
 		((MyActivity)_currentActivity).hideProgressDialog();
-		_currentActivity.startActivity(new Intent(_currentActivity, BookingActivity.class));
+		_currentActivity.startActivity(new Intent(_currentActivity, OrderActivity.class));
 	}
 
 	@Override
 	public void onFinishBookingDeny() {
 		((MyActivity)_currentActivity).hideProgressDialog();
 		_currentActivity.startActivity(new Intent(_currentActivity, AuthActivity.class));
+	}
+
+	@Override
+	public void onCancelBooking() {
+		((MyActivity)_currentActivity).hideProgressDialog();
 	}
 	
 }
