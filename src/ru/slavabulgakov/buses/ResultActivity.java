@@ -36,9 +36,8 @@ public class ResultActivity extends MyActivity {
 		
 		_listView.setOnItemClickListener(new OnItemClickListener() {
 		    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		    	MyApplication app = (MyApplication)getApplicationContext();
-		    	app.detail_show("http://bashauto.ru" + al.get(position).detailLink);
-		    	app.setCurrentPostion(position);
+		    	_app.detail_show("http://bashauto.ru" + al.get(position).detailLink);
+		    	_app.setCurrentPostion(position);
 		    }
 		  });
 	}

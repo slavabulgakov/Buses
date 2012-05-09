@@ -32,10 +32,16 @@ public class Representation implements IRepresentation {
 	public void onStartParsing() {
 		((MyActivity)_currentActivity).showProgressDialog();
 	}
-
+	
 	@Override
-	public void onFinishParsing() {
+	public void onFinishParsingBookingPage() {
 		_currentActivity.startActivity(new Intent(_currentActivity, ResultActivity.class));
+		((MyActivity)_currentActivity).hideProgressDialog();
+	}
+	
+	@Override
+	public void onFinishParsingDetailPage() {
+		_currentActivity.startActivity(new Intent(_currentActivity, DetailTripActivity.class));
 		((MyActivity)_currentActivity).hideProgressDialog();
 	}
 

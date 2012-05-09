@@ -24,7 +24,6 @@ public class MainActivity extends MyActivity {
 	private DatePickerDialog _datePickerDialog;
 	private Button _dateBtn;
 	private ShareView _shareView;
-	private MyApplication _app;
 	
 	
 	private void updateDate() {
@@ -69,12 +68,8 @@ public class MainActivity extends MyActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-        _app = (MyApplication)getApplicationContext();
-        
-        final MyApplication app = (MyApplication)getApplicationContext();
-        
         _shareView = (ShareView)findViewById(R.id.mainShareControl);
-        app.getShare().setShareView(_shareView);
+        _app.getShare().setShareView(_shareView);
                 
         ImageButton logo = (ImageButton)findViewById(R.id.mainLogoImageButton);
         logo.setOnClickListener(new OnClickListener() {
@@ -87,29 +82,29 @@ public class MainActivity extends MyActivity {
         _textViewFrom = (AutoCompleteTextView)findViewById(R.id.autoCompleteTextViewFrom);
         TextViewAdapter myAdapter = new TextViewAdapter(this, android.R.layout.simple_dropdown_item_1line, Direction.FROM);
         _textViewFrom.setAdapter(myAdapter);
-        _textViewFrom.setText(app.getFrom());
+        _textViewFrom.setText(_app.getFrom());
         _textViewFrom.setOnFocusChangeListener(new OnFocusChangeListener() {
 			
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
-				app.setFrom(_textViewFrom.getText().toString());
+				_app.setFrom(_textViewFrom.getText().toString());
 			}
 		});
         
         _textViewTo = (AutoCompleteTextView)findViewById(R.id.autoCompleteTextViewTo);
         TextViewAdapter myAdapter2 = new TextViewAdapter(this, android.R.layout.simple_dropdown_item_1line, Direction.TO);
         _textViewTo.setAdapter(myAdapter2);
-        _textViewTo.setText(app.getTo());
+        _textViewTo.setText(_app.getTo());
         _textViewTo.setOnFocusChangeListener(new OnFocusChangeListener() {
 			
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
-				app.setTo(_textViewTo.getText().toString());
+				_app.setTo(_textViewTo.getText().toString());
 			}
 		});
         
         
-        Date date = app.getDate();
+        Date date = _app.getDate();
         _datePickerDialog = new DatePickerDialog(this, mDateSetListener, date.getYear() + 1900, date.getMonth(), date.getDate());
         _dateBtn = (Button)findViewById(R.id.buttonDate);
         updateDate();

@@ -294,7 +294,7 @@ public class BookingTask extends AsyncTask<String, Void, Boolean> {
 				.execute();
 		
 		doc = res.parse();
-		String orderNumber = doc.select("span.cd60 font11 tc").get(0).text();
+		String orderNumber = doc.select("span.cd60").get(0).text();
 		_app.setOrderNumber(orderNumber);
 		
 		return true;

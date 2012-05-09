@@ -199,7 +199,11 @@ public class ParserWebPageTask extends AsyncTask<String, Void, RequestResult> {
 		
 		switch (result) {
 		case SUCCESS:
-			_parserCallback.onFinishParsing();
+			if (_parserType == ParserType.BOOKING_PAGE) {
+				_parserCallback.onFinishParsingBookingPage();
+			} else if (_parserType == ParserType.DETAIL_PAGE) {
+				_parserCallback.onFinishParsingDetailPage();
+			}
 			break;
 			
 		case EMPTY_RESPONSE:

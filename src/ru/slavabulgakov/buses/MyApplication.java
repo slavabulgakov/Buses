@@ -43,7 +43,8 @@ public class MyApplication extends Application {
 	
 	public interface IRepresentation {
 		public void onStartParsing();
-		public void onFinishParsing();
+		public void onFinishParsingBookingPage();
+		public void onFinishParsingDetailPage();
 		public void onFinishParsingEmpty();
 		public void onFinishParsingConnectionError();
 		public void onCancelParsing();
@@ -311,28 +312,33 @@ public class MyApplication extends Application {
 	}
 	
 	public void booking() {
-		_bookingIsGoing = true;
-		AlertDialog.Builder builder = new AlertDialog.Builder(_representation.getCurrentActivity());
-		builder.setTitle(R.string.booking_alert)
-				.setCancelable(true)
-				.setIcon(android.R.drawable.ic_dialog_info)
-				.setPositiveButton(R.string.booking_fully, new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						setTicketType(TicketType.Fully);
-						booking2();
-					}
-				})
-				.setPositiveButton(R.string.booking_children, new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						setTicketType(TicketType.Child);
-						booking2();
-					}
-				})
-				.setNegativeButton(R.string.cancel, null);
-		AlertDialog alert = builder.create();
-		alert.show();
+		if (!_bookingIsGoing) {
+			_bookingIsGoing = true;
+			AlertDialog.Builder builder = new AlertDialog.Builder(_representation.getCurrentActivity());
+			builder.setTitle(R.string.booking_alert)
+					.setCancelable(true)
+					.setIcon(android.R.drawable.ic_dialog_info)
+					.setPositiveButton(R.string.booking_fully, new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							setTicketType(TicketType.Fully);
+							booking2();
+						}
+					})
+					.setNeutralButton(R.string.booking_children, new DialogInterface.OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							setTicketType(TicketType.Child);
+							booking2();
+						}
+					})
+					.setNegativeButton(R.string.cancel, null);
+			AlertDialog alert = builder.create();
+			alert.show();
+		} else {
+			booking2();
+		}
 	}
 	
 	public String auth() {
@@ -349,7 +355,7 @@ public class MyApplication extends Application {
 		return _orderNumber;
 	}
 	
-	private Boolean _bookingIsGoing;
+	private Boolean _bookingIsGoing = false;
 	public void setBookingIsGoing(Boolean bookingIsGoing){
 		_bookingIsGoing = bookingIsGoing;
 	}
