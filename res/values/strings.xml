@@ -101,5 +101,9 @@
     
     <string name="orders_list">Список заказов</string>
     <string name="home">Домой</string>
+    
+    <string name="loading_orders">Загрузка заказов...</string>
+    <string name="number_last_order">№ послед. заказа:</string>
+    
 
 </resources>

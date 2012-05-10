@@ -25,7 +25,6 @@ public class BookingTask extends AsyncTask<String, Void, Boolean> {
 	public static final String PHPSESSID = "PHPSESSID";
 	private Boolean _cancelled;
 	private IRepresentation _callback;
-	private Boolean _isLoading;
 	private MyApplication _app;
 	private RequestType _requestType;
 	
@@ -36,7 +35,10 @@ public class BookingTask extends AsyncTask<String, Void, Boolean> {
 		_requestType = requestType;
 	}
 	
-	
+	private Boolean _isLoading;
+	public Boolean isLoading() {
+		return _isLoading;
+	}
 
 	@Override
 	protected void onCancelled() {
@@ -55,26 +57,26 @@ public class BookingTask extends AsyncTask<String, Void, Boolean> {
 	}
 	
 	
-	private String getPhpSessId() {
-//		SharedPreferences settings = _app.getSharedPreferences(MyApplication.PREF_NAME, 0);
-	    String phpSessId = null;//settings.getString(PHPSESSID, null);
-	    Document doc = null;
-	    if (phpSessId == null) {
-	    	try {
-	    		Connection.Response res = Jsoup.connect("http://bashauto.ru/booking/")
-	    										.method(Method.GET)
-	    										.execute();
-	    		doc = res.parse();
-	    		phpSessId = res.cookie("PHPSESSID");
-//	    		SharedPreferences.Editor editor = settings.edit();
-//	    		editor.putString(PHPSESSID, phpSessId);
-//	    		editor.commit();
-	    	} catch (IOException e) {
-	    		e.printStackTrace();
-	    	}
-	    }
-	    return phpSessId;
-	}
+//	private String getPhpSessId() {
+////		SharedPreferences settings = _app.getSharedPreferences(MyApplication.PREF_NAME, 0);
+//	    String phpSessId = null;//settings.getString(PHPSESSID, null);
+//	    Document doc = null;
+//	    if (phpSessId == null) {
+//	    	try {
+//	    		Connection.Response res = Jsoup.connect("http://bashauto.ru/booking/")
+//	    										.method(Method.GET)
+//	    										.execute();
+//	    		doc = res.parse();
+//	    		phpSessId = res.cookie("PHPSESSID");
+////	    		SharedPreferences.Editor editor = settings.edit();
+////	    		editor.putString(PHPSESSID, phpSessId);
+////	    		editor.commit();
+//	    	} catch (IOException e) {
+//	    		e.printStackTrace();
+//	    	}
+//	    }
+//	    return phpSessId;
+//	}
 	
 	private String getBookLink() {
 		String bookLink = _app.getArrayListScheduleData().get(_app.getCurrentPosition()).bookLink;
@@ -87,14 +89,10 @@ public class BookingTask extends AsyncTask<String, Void, Boolean> {
 		return sessId;
 	}
 	
-	private Boolean auth() throws IOException {
-		String login = _app.getLogin();
-		String password = _app.getPassword();
+	public static Boolean auth(MyApplication app, Boolean canceled) throws IOException {
+		String login = app.getLogin();
+		String password = app.getPassword();
 		if (login == null || password == null) {
-			return false;
-		}
-		
-		if (_cancelled) {
 			return false;
 		}
 		
@@ -108,7 +106,7 @@ public class BookingTask extends AsyncTask<String, Void, Boolean> {
 //				.header("Connection", "keep-alive")
 //				.header("Content-Length", "116")
 //				.header("Content-Type", "application/x-www-form-urlencoded")
-				.cookie("PHPSESSID", _app.getPhpSessId())
+				.cookie("PHPSESSID", app.getPhpSessId())
 //				.cookie("BITRIX_SM_SOUND_LOGIN_PLAYED", "Y")
 //				.cookie("BITRIX_SM_LOGIN", _app.getLogin())
 //				.cookie("__utma", "141051809.1702567638.1333279036.1335008606.1335012401.26")
@@ -128,8 +126,17 @@ public class BookingTask extends AsyncTask<String, Void, Boolean> {
 						"Login", "%D0%92%D0%BE%D0%B9%D1%82%D0%B8")
 				.timeout(3000000)
 				.execute();
+		
+		if (canceled) {
+			return false;
+		}
 
 		Document doc = res.parse();
+		
+		if (canceled) {
+			return false;
+		}
+		
 		int size = doc.select("input.field[name=USER_LOGIN]").size();
 		if (size > 0) {
 			return false;
@@ -173,7 +180,7 @@ public class BookingTask extends AsyncTask<String, Void, Boolean> {
 		doc = res.parse();
 		int size = doc.select("table.sale_order_full_table").size();
 		if (size > 0) { // пользователь не авторизован
-			if (auth()) {
+			if (auth(_app, _cancelled)) {
 				return booking();
 			}
 			return false;
@@ -308,7 +315,7 @@ public class BookingTask extends AsyncTask<String, Void, Boolean> {
 				return booking();
 				
 			case AUTH:
-				return auth();
+				return auth(_app, _cancelled);
 
 			default:
 				break;

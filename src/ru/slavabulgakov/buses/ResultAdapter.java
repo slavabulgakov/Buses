@@ -10,12 +10,23 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-public class TripAdapter extends ArrayAdapter<Trip> {
+class ResultElement {
+    public String priceRub;
+    public String priceKop;
+    public String timeStart;
+    public String timeEnd;
+    public String allSeats;
+    public String freeSeats;
+    public String detailLink;
+    public String bookLink;
+}
+
+public class ResultAdapter extends ArrayAdapter<ResultElement> {
 	Context context; 
     int layoutResourceId;    
-    ArrayList<Trip> data = null;
+    ArrayList<ResultElement> data = null;
     
-    public TripAdapter(Context context, int layoutResourceId, ArrayList<Trip> data) {
+    public ResultAdapter(Context context, int layoutResourceId, ArrayList<ResultElement> data) {
         super(context, layoutResourceId, data);
         this.layoutResourceId = layoutResourceId;
         this.context = context;
@@ -45,7 +56,7 @@ public class TripAdapter extends ArrayAdapter<Trip> {
             holder = (TripHolder)row.getTag();
         }
         
-        Trip weather = data.get(position);
+        ResultElement weather = data.get(position);
         holder.txtTime.setText(weather.timeStart + " - " + weather.timeEnd);
         holder.txtPriceRubl.setText(weather.priceRub);
         holder.txtPriceKop.setText(weather.priceKop);

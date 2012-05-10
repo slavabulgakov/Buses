@@ -28,9 +28,19 @@ public class Representation implements IRepresentation {
 	//====================
 	//////////////////////
 	
+	private Boolean _withoutProgress = false;
+	@Override
+	public void setWithoutProgress(Boolean withoutProgress) {
+		_withoutProgress = withoutProgress;
+	}
+	
 	@Override
 	public void onStartParsing() {
-		((MyActivity)_currentActivity).showProgressDialog();
+		if (_withoutProgress) {
+			_withoutProgress = false;
+		} else {
+			((MyActivity)_currentActivity).showProgressDialog();
+		}
 	}
 	
 	@Override
@@ -43,6 +53,11 @@ public class Representation implements IRepresentation {
 	public void onFinishParsingDetailPage() {
 		_currentActivity.startActivity(new Intent(_currentActivity, DetailTripActivity.class));
 		((MyActivity)_currentActivity).hideProgressDialog();
+	}
+	
+	@Override
+	public void onFinishParsingOrdersPage() {
+		((MainActivity)_currentActivity).showLastOrderNumber();
 	}
 
 	@Override
@@ -99,5 +114,5 @@ public class Representation implements IRepresentation {
 	public void onCancelBooking() {
 		((MyActivity)_currentActivity).hideProgressDialog();
 	}
-	
+
 }

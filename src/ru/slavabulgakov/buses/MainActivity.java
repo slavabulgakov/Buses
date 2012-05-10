@@ -16,6 +16,9 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 
 public class MainActivity extends MyActivity {
@@ -24,6 +27,10 @@ public class MainActivity extends MyActivity {
 	private DatePickerDialog _datePickerDialog;
 	private Button _dateBtn;
 	private ShareView _shareView;
+	private RelativeLayout _ordersRelativeLayout;
+	private LinearLayout _loadingLinearLayout;
+	private LinearLayout _ordersLinearLayout;
+	private TextView _lastOrderNumberTextView;
 	
 	
 	private void updateDate() {
@@ -59,6 +66,22 @@ public class MainActivity extends MyActivity {
 	protected void onStart() {
 		_app.getShare().updateAlerts();
 		super.onStart();
+	}
+	
+	
+	public void showLastOrderNumber() {
+		if (_app.getArrayListOrders() == null) {
+			_ordersRelativeLayout.setVisibility(View.INVISIBLE);
+		} else {
+			if (_app.getArrayListOrders().size() > 0) {
+	        	_lastOrderNumberTextView.setText(_app.getArrayListOrders().get(0).numberOrder);
+	        	_ordersRelativeLayout.setVisibility(View.VISIBLE);
+	    		_loadingLinearLayout.setVisibility(View.INVISIBLE);
+	            _ordersLinearLayout.setVisibility(View.VISIBLE);
+			} else {
+				_ordersRelativeLayout.setVisibility(View.INVISIBLE);
+			}
+		}
 	}
 
 
@@ -114,6 +137,33 @@ public class MainActivity extends MyActivity {
 			}
 		});
         
+        
+        _loadingLinearLayout = (LinearLayout)findViewById(R.id.mainLoadingOrdersLinearLayout);
+        _ordersLinearLayout = (LinearLayout)findViewById(R.id.mainOrdesLinearLayout);
+        _lastOrderNumberTextView = (TextView)findViewById(R.id.mainNumberLastOrderTextView);
+        _ordersRelativeLayout = (RelativeLayout)findViewById(R.id.mainOrdesRelativeLayout);
+        
+        _ordersRelativeLayout.setVisibility(View.VISIBLE);
+		_loadingLinearLayout.setVisibility(View.VISIBLE);
+        _ordersLinearLayout.setVisibility(View.INVISIBLE);
+        if (_app.getArrayListOrders() != null) {
+			showLastOrderNumber();
+		} else if (!_app.isLoading()) {
+			_app.getRepresentation().setWithoutProgress(true);
+			_app.loadOrdersList();
+		}
+        
+        Button ordersBtn = (Button)findViewById(R.id.mainOrdersBtn);
+        ordersBtn.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if (_app.getArrayListOrders().size() > 0) {
+					startActivity(new Intent(MainActivity.this, OrdersActivity.class));
+				}
+			}
+		});
+        
         Button refreshBtn = (Button)findViewById(R.id.refreshBtn);
         refreshBtn.setOnClickListener(new View.OnClickListener()  {
             public void onClick(View v) {
@@ -121,12 +171,11 @@ public class MainActivity extends MyActivity {
             	String from = _textViewFrom.getText().toString();
             	String to = _textViewTo.getText().toString();
             	
-            	MyApplication app = (MyApplication)getApplicationContext();
-            	app.setFrom(from);
-            	app.setTo(to);
+            	_app.setFrom(from);
+            	_app.setTo(to);
 				
 				Date currentDate = new Date(new Date().getYear(), new Date().getMonth(), new Date().getDate());
-				Date date = app.getDate();
+				Date date = _app.getDate();
 				
 				if (	from.isEmpty() || 
 						to.isEmpty() || 
@@ -135,7 +184,7 @@ public class MainActivity extends MyActivity {
 					return;
 				}
             	
-        		app.show(from, to, app.getDate());
+        		_app.show(from, to, _app.getDate());
             }
         });
     }

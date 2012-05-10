@@ -45,6 +45,7 @@ public class MyApplication extends Application {
 		public void onStartParsing();
 		public void onFinishParsingBookingPage();
 		public void onFinishParsingDetailPage();
+		public void onFinishParsingOrdersPage();
 		public void onFinishParsingEmpty();
 		public void onFinishParsingConnectionError();
 		public void onCancelParsing();
@@ -58,6 +59,8 @@ public class MyApplication extends Application {
 		
 		public void setCurrentActivity(Activity activity);
 		public Activity getCurrentActivity();
+		
+		public void setWithoutProgress(Boolean withoutProgress);
 	}
 	
 	
@@ -89,11 +92,12 @@ public class MyApplication extends Application {
 	
 	
 	private ParserWebPageTask _parserWebPageTask;
+	private BookingTask _bookingTask;
 	
 	
 	public Boolean isLoading() {
-		if (_parserWebPageTask != null) {
-			return _parserWebPageTask.isLoading();
+		if (_parserWebPageTask != null || _bookingTask != null) {
+			return _parserWebPageTask.isLoading() || _bookingTask.isLoading();
 		}
 		return false;
 	}
@@ -132,25 +136,35 @@ public class MyApplication extends Application {
 	public Boolean enterPin;
 	
 	
-	interface ITrip {
-		void put(String key, String value);
-	}
-	
 	
 	
 	
 	
 	////////////////////////////
 	// arrayListScheduleData ===
-	private ArrayList<Trip> _arrayListScheduleData;
-	public ArrayList<Trip> getArrayListScheduleData() {
+	private ArrayList<ResultElement> _arrayListScheduleData;
+	public ArrayList<ResultElement> getArrayListScheduleData() {
 		return _arrayListScheduleData;
 	}
-	public void setArrayListScheduleData(ArrayList<Trip> array) {
+	public void setArrayListScheduleData(ArrayList<ResultElement> array) {
 		_arrayListScheduleData = array;
 	}
 	//==========================
 	////////////////////////////
+	
+	
+	
+	//////////////////////
+	// arrayListOrders ===
+	private ArrayList<OrdersElement> _arrayListOrders;
+	public ArrayList<OrdersElement> getArrayListOrders() {
+		return _arrayListOrders;
+	}
+	public void setArrayListOrders(ArrayList<OrdersElement> array) {
+		_arrayListOrders = array;
+	}
+	//====================
+	//////////////////////
 	
 	
 	
@@ -307,8 +321,8 @@ public class MyApplication extends Application {
 	
 	
 	private void booking2(){
-		BookingTask bookingTask = new BookingTask(this, _representation, RequestType.BOOKING);
-		bookingTask.execute("");
+		_bookingTask = new BookingTask(this, _representation, RequestType.BOOKING);
+		_bookingTask.execute("");
 	}
 	
 	public void booking() {
@@ -361,6 +375,12 @@ public class MyApplication extends Application {
 	}
 	public Boolean getBookingIsGoing(){
 		return _bookingIsGoing;
+	}
+	
+	public void loadOrdersList() {
+		String url = "http://bashauto.ru/personal/";
+		_parserWebPageTask = new ParserWebPageTask(ParserType.ORDERS_PAGE, this, _representation);
+		_parserWebPageTask.execute(url);
 	}
 	//=======================================================
 	/////////////////////////////////////////////////////////

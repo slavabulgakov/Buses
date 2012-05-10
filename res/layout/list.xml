@@ -5,26 +5,37 @@
     android:layout_height="match_parent" >
 
     <Button
-        android:id="@+id/resultBackBtn"
-        android:layout_width="match_parent"
+                android:id="@+id/resultBackBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_bg"
+                android:drawableLeft="@drawable/arrow_left2"
+                android:shadowColor="#000000"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:text="@string/back"
+                android:textSize="15sp"
+                android:textColor="#FFFFFF"
+                android:padding="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"/>
+    
+    <TextView
+        android:id="@+id/resultTitle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="@drawable/btn_bg"
-        android:drawableLeft="@drawable/arrow_left"
-        android:padding="10dp"
-        android:shadowColor="#000000"
-        android:shadowDx="1"
-        android:shadowDy="1"
+        android:layout_below="@+id/resultBackBtn"
+        android:layout_centerHorizontal="true"
         android:text="Уфа Южный АВ - Нефтекамск ч/з Дюртюли"
-        android:textColor="#FFFFFF"
-        android:textSize="15sp" />
+        android:gravity="center"/>
 
     <ListView
         android:id="@+id/resultListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/resultAdView"
-        android:layout_below="@+id/resultBackBtn"
+        android:layout_below="@+id/resultTitle"
         android:layout_margin="5dp" >
     </ListView>
     
@@ -38,5 +49,5 @@
         ads:adUnitId="@string/admob_publisher_id"
         ads:loadAdOnCreate="true" >
     </com.google.ads.AdView>
-    
+
 </RelativeLayout>

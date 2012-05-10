@@ -5,13 +5,11 @@ import java.util.ArrayList;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class ResultActivity extends MyActivity {
+public class OrdersActivity extends MyActivity {
 	private ListView _listView;
 	private Button _backBtn;
 	private TextView _title;
@@ -22,7 +20,7 @@ public class ResultActivity extends MyActivity {
 		setContentView(R.layout.list);
 		
 		_title = (TextView)findViewById(R.id.resultTitle);
-		_title.setText(_app.getFrom() + " - " + _app.getTo());
+		_title.setText(R.string.orders_list);
 		
 		_backBtn = (Button)findViewById(R.id.resultBackBtn);
 		_backBtn.setOnClickListener(new OnClickListener() {
@@ -33,17 +31,16 @@ public class ResultActivity extends MyActivity {
 		});
 		
 		
-		
 		_listView = (ListView)findViewById(R.id.resultListView);
-		final ArrayList<ResultElement> al = _app.getArrayListScheduleData();
-        ResultAdapter adapter = new ResultAdapter(ResultActivity.this, R.layout.list_result_item, al);
+		final ArrayList<OrdersElement> al = _app.getArrayListOrders();
+        OrdersAdapter adapter = new OrdersAdapter(OrdersActivity.this, R.layout.list_orders_item, al);
 		_listView.setAdapter(adapter);
 		
-		_listView.setOnItemClickListener(new OnItemClickListener() {
-		    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		    	_app.detail_show("http://bashauto.ru" + al.get(position).detailLink);
-		    	_app.setCurrentPostion(position);
-		    }
-		  });
+//		_listView.setOnItemClickListener(new OnItemClickListener() {
+//		    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//		    	_app.detail_show("http://bashauto.ru" + al.get(position).detailLink);
+//		    	_app.setCurrentPostion(position);
+//		    }
+//		  });
 	}
 }

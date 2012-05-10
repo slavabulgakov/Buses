@@ -30,6 +30,9 @@
         <activity android:name="ResultActivity"
                   android:theme="@android:style/Theme.NoTitleBar" />
         
+        <activity android:name="OrdersActivity"
+                  android:theme="@android:style/Theme.NoTitleBar" />
+        
         <activity android:name="DetailTripActivity"
                   android:theme="@android:style/Theme.NoTitleBar" />
         
