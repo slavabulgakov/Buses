@@ -1,13 +1,13 @@
 package ru.slavabulgakov.buses;
 
 import ru.slavabulgakov.buses.Share.IShareView;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
-import android.graphics.Canvas;
 import android.net.Uri;
 import android.util.AttributeSet;
 import android.view.View;
@@ -17,12 +17,13 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+@SuppressLint("NewApi")
 public class ShareView extends LinearLayout implements IShareView {
 	private ImageButton _vkImgBtn;
 	private ImageButton _twImgBtn;
 	private ImageButton _emailImgBtn;
 	private ImageButton _fbImgBtn;
-	private LinearLayout _layout;
+//	private LinearLayout _layout;
 	private Context _context;
 	private HorizontalScrollView _scrollView;
 	
@@ -92,7 +93,7 @@ public class ShareView extends LinearLayout implements IShareView {
 	
 	@Override
 	public void onVKSendSuccess() {
-		Toast.makeText(_context, R.string.share_success, 400).show();
+		Toast.makeText(_context, R.string.share_success, Toast.LENGTH_LONG).show();
 	}
 	
 	private OnClickListener _vkOnClickListener = new OnClickListener() {
@@ -115,7 +116,7 @@ public class ShareView extends LinearLayout implements IShareView {
 	
 	@Override
 	public void onFBSendSuccess() {
-		Toast.makeText(_context, R.string.share_success, 400).show();
+		Toast.makeText(_context, R.string.share_success, Toast.LENGTH_LONG).show();
 	}
 	
 	@Override
@@ -125,7 +126,7 @@ public class ShareView extends LinearLayout implements IShareView {
 	
 	@Override
 	public void onFBCanceled() {
-		Toast.makeText(_context, R.string.share_cancel_title, 400).show();
+		Toast.makeText(_context, R.string.share_cancel_title, Toast.LENGTH_LONG).show();
 	}
 	
 	private OnClickListener _fbOnClickListener = new OnClickListener() {
@@ -174,7 +175,7 @@ public class ShareView extends LinearLayout implements IShareView {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				_enterPinDialogIsShowed = false;
-				Toast.makeText(_context, R.string.share_cancel_title, 400).show();
+				Toast.makeText(_context, R.string.share_cancel_title, Toast.LENGTH_LONG).show();
 				share.setNothingState();
 			}
 		});
@@ -209,7 +210,7 @@ public class ShareView extends LinearLayout implements IShareView {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				_getPinDialogIsShowed = false;
-				Toast.makeText(_context, R.string.share_cancel_title, 400).show();
+				Toast.makeText(_context, R.string.share_cancel_title, Toast.LENGTH_LONG).show();
 				share.setNothingState();
 			}
 		});
@@ -236,7 +237,7 @@ public class ShareView extends LinearLayout implements IShareView {
 	
 	@Override
 	public void onTwitterSuccesUpdating() {
-		Toast.makeText(_context, R.string.share_success, 400).show();
+		Toast.makeText(_context, R.string.share_success, Toast.LENGTH_LONG).show();
 	}
 	
 		
@@ -294,7 +295,7 @@ public class ShareView extends LinearLayout implements IShareView {
 		_twImgBtn = (ImageButton)findViewById(R.id.shareTwitterImageButton);
 		_twImgBtn.setOnClickListener(_twOnClickListener);
 		
-		_layout = (LinearLayout)findViewById(R.id.shareLayout);
+//		_layout = (LinearLayout)findViewById(R.id.shareLayout);
 	}
 
 	private void setAttrs(AttributeSet attrs) {

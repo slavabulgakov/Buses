@@ -5,6 +5,7 @@ import ru.slavabulgakov.buses.TextViewAdapter.Direction;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
+@SuppressLint("SimpleDateFormat")
 public class MainActivity extends MyActivity {
 	private AutoCompleteTextView _textViewFrom;
 	private AutoCompleteTextView _textViewTo;
@@ -67,7 +69,6 @@ public class MainActivity extends MyActivity {
 		_app.getShare().updateAlerts();
 		super.onStart();
 	}
-	
 	
 	public void showLastOrderNumber() {
 		if (_app.getArrayListOrders() == null) {
@@ -146,12 +147,12 @@ public class MainActivity extends MyActivity {
         _ordersRelativeLayout.setVisibility(View.VISIBLE);
 		_loadingLinearLayout.setVisibility(View.VISIBLE);
         _ordersLinearLayout.setVisibility(View.INVISIBLE);
-        if (_app.getArrayListOrders() != null) {
-			showLastOrderNumber();
-		} else if (!_app.isLoading()) {
-			_app.getRepresentation().setWithoutProgress(true);
-			_app.loadOrdersList();
-		}
+//        if (_app.getArrayListOrders() != null) {
+//			showLastOrderNumber();
+//		} else if (!_app.isLoading()) {
+//			_app.getRepresentation().setWithoutProgress(true);
+//			_app.loadOrdersList();
+//		}
         
         Button ordersBtn = (Button)findViewById(R.id.mainOrdersBtn);
         ordersBtn.setOnClickListener(new OnClickListener() {
@@ -177,8 +178,8 @@ public class MainActivity extends MyActivity {
 				Date currentDate = new Date(new Date().getYear(), new Date().getMonth(), new Date().getDate());
 				Date date = _app.getDate();
 				
-				if (	from.isEmpty() || 
-						to.isEmpty() || 
+				if (	from.length() == 0 || 
+						to.length() == 0 || 
 						date.compareTo(currentDate) < 0) {
 					showAlertDialog(R.string.form_error_title, R.string.form_error_message, android.R.drawable.ic_dialog_alert);
 					return;

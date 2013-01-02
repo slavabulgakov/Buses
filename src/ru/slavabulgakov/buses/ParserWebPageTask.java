@@ -3,9 +3,6 @@ package ru.slavabulgakov.buses;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import org.jsoup.Connection;
-import org.jsoup.Connection.Method;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -169,13 +166,11 @@ public class ParserWebPageTask extends AsyncTask<String, Void, RequestResult> {
 		try {
 			Log.i("info", "start download");
 			String phpSessId = _app.getPhpSessId();
-			Connection.Response res = Jsoup.connect(url[0])
-											.method(Method.GET)
-											.cookie(MyApplication.PHPSESSID, phpSessId)
-											.timeout(300000)
-											.execute();
-			    		
-	        Document doc = res.parse();
+
+	        Document doc = SslJsoup.connect(url[0])
+	        		.cookie(MyApplication.PHPSESSID, phpSessId)
+	        		.execute()
+	        		.parse();
 	        
 	        if (_canceled) {
 				return RequestResult.CANCELED;

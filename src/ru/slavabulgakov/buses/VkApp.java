@@ -12,8 +12,6 @@ import org.apache.http.util.EntityUtils;
 //import net.octobersoft.android.caucasiancuisinefree.common.Constants;
 import android.content.Context;
 import android.net.Uri;
-import android.util.Log;
-
 import org.json.*;
 
 public class VkApp {

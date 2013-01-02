@@ -51,7 +51,7 @@ public class Representation implements IRepresentation {
 	
 	@Override
 	public void onFinishParsingDetailPage() {
-		_currentActivity.startActivity(new Intent(_currentActivity, DetailTripActivity.class));
+		_currentActivity.startActivity(new Intent(_app.getApplicationContext(), DetailTripActivity.class));
 		((MyActivity)_currentActivity).hideProgressDialog();
 	}
 	
@@ -74,7 +74,7 @@ public class Representation implements IRepresentation {
 
 	@Override
 	public void onCancelParsing() {
-		Toast.makeText(_currentActivity, R.string.cancel_loading, 400).show();
+		Toast.makeText(_currentActivity, R.string.cancel_loading, Toast.LENGTH_LONG).show();
 	}
 
 	@Override
@@ -86,7 +86,7 @@ public class Representation implements IRepresentation {
 	public void onFinishAuthSuccess() {
 		((MyActivity)_currentActivity).hideProgressDialog();
 		_currentActivity.finish();
-		Toast.makeText(_currentActivity, R.string.auth_success, 400).show();
+		Toast.makeText(_currentActivity, R.string.auth_success, Toast.LENGTH_LONG).show();
 		if (_app.getBookingIsGoing()) {
 			_app.booking();
 		}

@@ -1,23 +1,20 @@
 package ru.slavabulgakov.buses;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import org.jsoup.Connection;
-import org.jsoup.Connection.Method;
-import org.jsoup.Jsoup;
 import ru.slavabulgakov.buses.ParserWebPageTask.ParserType;
-
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Application;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 
+@SuppressLint("SimpleDateFormat")
 public class MyApplication extends Application {
 	private Share _share;
 	
@@ -96,9 +93,14 @@ public class MyApplication extends Application {
 	
 	
 	public Boolean isLoading() {
-		if (_parserWebPageTask != null || _bookingTask != null) {
-			return _parserWebPageTask.isLoading() || _bookingTask.isLoading();
+		if (_parserWebPageTask != null) {
+			return _parserWebPageTask.isLoading();
 		}
+		
+		if (_bookingTask != null) {
+			return _bookingTask.isLoading();
+		}
+		
 		return false;
 	}
 		
@@ -108,8 +110,6 @@ public class MyApplication extends Application {
 		return formatter.format(date);
 	}
 	
-	
-
 	public void show(String from, String to, Date date) {
 		try {
 			from = URLEncoder.encode(from, "UTF-8");
@@ -296,21 +296,16 @@ public class MyApplication extends Application {
 	//////////////////
 	
 	
+	
 	/////////////////////
 	//php session id===
 	private String _phpSessId;
 	public static final String PHPSESSID = "PHPSESSID";
 	public String getPhpSessId() {
 		if (_phpSessId == null) {
-			try {
-	    		Connection.Response res = Jsoup.connect("http://bashauto.ru")
-	    										.method(Method.GET)
-	    										.timeout(3000000)
-	    										.execute();
-	    		_phpSessId = res.cookie("PHPSESSID");
-	    	} catch (IOException e) {
-	    		e.printStackTrace();
-	    	}
+			_phpSessId = SslJsoup.connect("https://bashauto.ru/booking/")
+									.execute()
+									.cookie(PHPSESSID);
 		}
 		
 		return _phpSessId;
