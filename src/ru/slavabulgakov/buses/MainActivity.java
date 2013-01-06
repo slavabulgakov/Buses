@@ -9,6 +9,7 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.text.Html;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -87,10 +88,16 @@ public class MainActivity extends MyActivity {
 
 
 	/** Called when the activity is first created. */
-    @Override
+    @SuppressLint("NewApi")
+	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
         
         _shareView = (ShareView)findViewById(R.id.mainShareControl);
         _app.getShare().setShareView(_shareView);
@@ -138,32 +145,6 @@ public class MainActivity extends MyActivity {
 			}
 		});
         
-        
-        _loadingLinearLayout = (LinearLayout)findViewById(R.id.mainLoadingOrdersLinearLayout);
-        _ordersLinearLayout = (LinearLayout)findViewById(R.id.mainOrdesLinearLayout);
-        _lastOrderNumberTextView = (TextView)findViewById(R.id.mainNumberLastOrderTextView);
-        _ordersRelativeLayout = (RelativeLayout)findViewById(R.id.mainOrdesRelativeLayout);
-        
-        _ordersRelativeLayout.setVisibility(View.VISIBLE);
-		_loadingLinearLayout.setVisibility(View.VISIBLE);
-        _ordersLinearLayout.setVisibility(View.INVISIBLE);
-//        if (_app.getArrayListOrders() != null) {
-//			showLastOrderNumber();
-//		} else if (!_app.isLoading()) {
-//			_app.getRepresentation().setWithoutProgress(true);
-//			_app.loadOrdersList();
-//		}
-        
-        Button ordersBtn = (Button)findViewById(R.id.mainOrdersBtn);
-        ordersBtn.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				if (_app.getArrayListOrders().size() > 0) {
-					startActivity(new Intent(MainActivity.this, OrdersActivity.class));
-				}
-			}
-		});
         
         Button refreshBtn = (Button)findViewById(R.id.refreshBtn);
         refreshBtn.setOnClickListener(new View.OnClickListener()  {

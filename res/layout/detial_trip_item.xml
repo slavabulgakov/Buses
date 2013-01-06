@@ -10,12 +10,10 @@
         android:id="@+id/txtDetailTripItemTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/txtViewTrip"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/txtViewTrip"
         android:layout_marginRight="10dp"
         android:gravity="center"
-        android:text="09:00 - 09:10"
+        android:text="@string/time_sample"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -25,7 +23,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignTop="@+id/txtDetailTripItemTime"
         android:layout_marginLeft="50dp"
-        android:text="Уфа Южный АВ"
+        android:text="@string/ufa_sample"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -34,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/txtDetailTripItemName"
         android:layout_below="@+id/txtDetailTripItemName"
-        android:text="расстояние: 112 км" />
+        android:text="@string/dist_sample" />
 
     <ImageView
         android:id="@+id/imgDetailTripItemImageView"
@@ -43,6 +41,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:scaleType="fitStart"
-        android:src="@drawable/path" />
+        android:src="@drawable/path"
+        android:contentDescription="@string/none" />
 
 </RelativeLayout>

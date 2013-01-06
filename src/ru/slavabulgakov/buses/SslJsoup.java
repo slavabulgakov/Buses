@@ -77,11 +77,32 @@ public class SslJsoup {
 		return Jsoup.parse(_dataAsString);
 	}
 	
+	public Document parseBodyFragment() {
+		return Jsoup.parseBodyFragment(_dataAsString);
+	}
+	
+	public SslJsoup eraseBefore(String before) {
+		int index = _dataAsString.indexOf(before);
+		if (index != -1) {
+			_dataAsString = _dataAsString.substring(index, _dataAsString.length() - 1);
+		}
+		
+		return this;
+	}
+	
+	public SslJsoup eraseAfter(String after) {
+		int index = _dataAsString.indexOf(after);
+		if (index != -1) {
+			_dataAsString = _dataAsString.substring(0, index);
+		}
+		return this;
+	}
+	
 	public SslJsoup execute() {
 		DefaultHttpClient client = (DefaultHttpClient) getNewHttpClient();
 		
 		HttpGet request = new HttpGet(_url);
-		request.setHeader("User-Agent", "set your desired User-Agent");
+		request.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.97 Safari/537.11");
 		try {
 			
 			HttpResponse response = null;

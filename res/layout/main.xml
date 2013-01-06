@@ -25,7 +25,7 @@
         android:id="@+id/mainLogoImageButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/logo" android:scaleType="center" android:layout_marginLeft="10dp" android:layout_marginRight="10dp" android:layout_marginTop="10dp" android:background="@drawable/about_btn_bg"/>
+        android:src="@drawable/logo" android:scaleType="center" android:layout_marginLeft="10dp" android:layout_marginRight="10dp" android:layout_marginTop="10dp" android:background="@drawable/about_btn_bg" android:contentDescription="@string/none"/>
 
 
 
@@ -50,7 +50,7 @@
                 android:background="@drawable/btn_bg"
                 android:drawableLeft="@drawable/calendar_02"
                 android:padding="10dp"
-                android:text="25 февр. 2012"
+                android:text="@string/date_sample"
                 android:textColor="#FFFFFF"
                 android:shadowDx="1"
                 android:shadowDy="1"
@@ -127,77 +127,6 @@
         android:shadowColor="#000000"
         android:gravity="center"
         android:textColor="#FFFFFF" android:background="@drawable/btn_bg"/>
-    
-    
-
-    <RelativeLayout
-        android:id="@+id/mainOrdesRelativeLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp" android:layout_marginLeft="10dp" android:layout_marginRight="10dp" android:background="@drawable/layout_bg_order">
-
-        <LinearLayout
-            android:id="@+id/mainOrdesLinearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/text_bg_order"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="10dp" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/number_last_order"
-                    android:textColor="#FFFFFF"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:id="@+id/mainNumberLastOrderTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="И0000058630"
-                    android:textColor="#FFFFFF"
-                    android:textSize="15sp" />
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/mainOrdersBtn"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/btn_bg"
-                android:drawableRight="@drawable/arrow_right2"
-                android:padding="10dp"
-                android:text="@string/orders_list"
-                android:textColor="#FFFFFF"
-                android:textSize="15sp" />
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/mainLoadingOrdersLinearLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true" android:gravity="center">
-
-            <ProgressBar
-                style="?android:attr/progressBarStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/loading_orders"/>
-            
-        </LinearLayout>
-        
-    </RelativeLayout>
 
     <ru.slavabulgakov.buses.ShareView
         android:id="@+id/mainShareControl"

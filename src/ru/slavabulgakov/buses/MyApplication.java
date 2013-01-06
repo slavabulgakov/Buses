@@ -9,9 +9,7 @@ import java.util.Date;
 import ru.slavabulgakov.buses.ParserWebPageTask.ParserType;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Application;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 
 @SuppressLint("SimpleDateFormat")
@@ -89,16 +87,10 @@ public class MyApplication extends Application {
 	
 	
 	private ParserWebPageTask _parserWebPageTask;
-	private BookingTask _bookingTask;
-	
 	
 	public Boolean isLoading() {
 		if (_parserWebPageTask != null) {
 			return _parserWebPageTask.isLoading();
-		}
-		
-		if (_bookingTask != null) {
-			return _bookingTask.isLoading();
 		}
 		
 		return false;
@@ -118,7 +110,7 @@ public class MyApplication extends Application {
 			e.printStackTrace();
 		}
 		
-		String url = "http://bashauto.ru/booking/?fromName=" + from + "&toName=" + to + "&when=" + getStrDate(date);
+		String url = "https://bashauto.ru/booking/?fromName=" + from + "&toName=" + to + "&when=" + getStrDate(date);
 		
 		_parserWebPageTask = new ParserWebPageTask(ParserType.BOOKING_PAGE, this, _representation);
 		_parserWebPageTask.execute(url);
@@ -314,48 +306,6 @@ public class MyApplication extends Application {
 	//////////////////
 	
 	
-	
-	private void booking2(){
-		_bookingTask = new BookingTask(this, _representation, RequestType.BOOKING);
-		_bookingTask.execute("");
-	}
-	
-	public void booking() {
-		if (!_bookingIsGoing) {
-			_bookingIsGoing = true;
-			AlertDialog.Builder builder = new AlertDialog.Builder(_representation.getCurrentActivity());
-			builder.setTitle(R.string.booking_alert)
-					.setCancelable(true)
-					.setIcon(android.R.drawable.ic_dialog_info)
-					.setPositiveButton(R.string.booking_fully, new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							setTicketType(TicketType.Fully);
-							booking2();
-						}
-					})
-					.setNeutralButton(R.string.booking_children, new DialogInterface.OnClickListener() {
-						
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							setTicketType(TicketType.Child);
-							booking2();
-						}
-					})
-					.setNegativeButton(R.string.cancel, null);
-			AlertDialog alert = builder.create();
-			alert.show();
-		} else {
-			booking2();
-		}
-	}
-	
-	public String auth() {
-		BookingTask bookingTask = new BookingTask(this, _representation, RequestType.AUTH);
-		bookingTask.execute("");
-		return "";
-	}
-	
 	private String _orderNumber;
 	public void setOrderNumber(String orderNumber){
 		_orderNumber = orderNumber;
@@ -370,12 +320,6 @@ public class MyApplication extends Application {
 	}
 	public Boolean getBookingIsGoing(){
 		return _bookingIsGoing;
-	}
-	
-	public void loadOrdersList() {
-		String url = "http://bashauto.ru/personal/";
-		_parserWebPageTask = new ParserWebPageTask(ParserType.ORDERS_PAGE, this, _representation);
-		_parserWebPageTask.execute(url);
 	}
 	//=======================================================
 	/////////////////////////////////////////////////////////

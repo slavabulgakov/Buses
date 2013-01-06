@@ -11,8 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="2dip"
-        android:layout_toRightOf="@+id/imgViewLogo"
-        android:text="17:20 - 21:20"
+        android:text="@string/time_sample"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
@@ -21,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/txtViewTitle"
         android:layout_below="@+id/txtViewTitle"
-        android:text="19 из 49 мест свободно" />
+        android:text="@string/places_sample" />
 
     <FrameLayout
         android:id="@+id/frameLayout1"
@@ -38,7 +37,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:scaleType="center"
-        android:src="@drawable/arrow_right_little_01" />
+        android:src="@drawable/arrow_right_little_01" android:contentDescription="@string/none" />
 
     <TextView
         android:id="@+id/txtViewPriceKop"
@@ -46,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/imageView2"
         android:layout_toLeftOf="@+id/imageView2"
-        android:text="00"
+        android:text="@string/nullnull"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textSize="17sp" android:layout_marginTop="7dp"/>
 
@@ -57,7 +56,7 @@
         android:layout_alignTop="@+id/frameLayout1"
         android:layout_toLeftOf="@+id/txtViewPriceKop"
         android:gravity="center_vertical|center_horizontal"
-        android:text="320"
+        android:text="@string/price_sample"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="28sp" />
 
@@ -69,6 +68,6 @@
         android:layout_alignTop="@+id/txtViewPriceRub"
         android:layout_toLeftOf="@+id/txtViewPriceRub"
         android:scaleType="center"
-        android:src="@drawable/rub_02" android:layout_marginTop="-5dp"/>
+        android:src="@drawable/rub_02" android:layout_marginTop="-5dp" android:contentDescription="@string/none"/>
 
 </RelativeLayout>

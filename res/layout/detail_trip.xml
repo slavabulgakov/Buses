@@ -5,51 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
     
-    <LinearLayout
-            android:id="@+id/linearLayout1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <Button
-                android:id="@+id/detailTripBackBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/btn_bg"
-                android:drawableLeft="@drawable/arrow_left2"
-                android:shadowColor="#000000"
-                android:shadowDx="1"
-                android:shadowDy="1"
-                android:text="@string/back"
-                android:textSize="15sp"
-                android:textColor="#FFFFFF" android:padding="10dp" android:layout_marginBottom="10dp" android:layout_marginLeft="10dp" android:layout_marginTop="10dp"/>
-            
-            <Button
-                android:id="@+id/detailTripBook"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@drawable/btn_bg"
-                android:shadowColor="#000000"
-                android:shadowDx="1"
-                android:shadowDy="1"
-                android:text="@string/book"
-                android:textSize="15sp"
-                android:textColor="#FFFFFF" android:drawableRight="@drawable/arrow_right2" android:lines="1" android:padding="10dp"/>
-
-        </LinearLayout>
-    
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_above="@+id/detailTripAdView"
-        android:layout_below="@+id/linearLayout1" >
-
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" >
+
         <LinearLayout
             android:id="@+id/detailTripLinearLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical" >
 
             <TextView
@@ -57,7 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="Номер: 5881"
+                android:text="@string/route_sample"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
@@ -65,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="Автобус: Mersedes Bens(19)"
+                android:text="@string/bus_type_sample"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
@@ -73,7 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="Перевочик: БАЛ"
+                android:text="@string/perevozchik_sample"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
@@ -82,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 android:layout_marginLeft="10dp"
-                android:text="Периодичность: Ежедневно"
+                android:text="@string/periodicity_sample"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
         </LinearLayout>
 

@@ -1,6 +1,5 @@
 package ru.slavabulgakov.buses;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import org.jsoup.nodes.Document;
@@ -62,6 +61,10 @@ public class ParserWebPageTask extends AsyncTask<String, Void, RequestResult> {
 	    ArrayList<ResultElement> arrayList = new ArrayList<ResultElement>();
 	    for (Element element : elements) {
 	    	try {
+	    		if (_canceled) {
+					return null;
+				}
+	    		
 	    		String startTime = element.select("div.time").get(0).text();
 	        	String endTime = element.select("div.desttime").get(0).text();
 	        	String[] price = element.select("div.price").get(0).text().split(",");
@@ -163,54 +166,56 @@ public class ParserWebPageTask extends AsyncTask<String, Void, RequestResult> {
 	
 	@Override
 	protected RequestResult doInBackground(String... url) {
-		try {
-			Log.i("info", "start download");
-			String phpSessId = _app.getPhpSessId();
+//		int priority = Thread.currentThread().getPriority();
+		Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
+		Log.i("info", "start download");
+		String phpSessId = _app.getPhpSessId();
 
-	        Document doc = SslJsoup.connect(url[0])
-	        		.cookie(MyApplication.PHPSESSID, phpSessId)
-	        		.execute()
-	        		.parse();
-	        
-	        if (_canceled) {
+		SslJsoup sslJsoup = SslJsoup.connect(url[0])
+								.cookie(MyApplication.PHPSESSID, phpSessId)
+								.execute(); 
+		
+		if (_canceled) {
+			return RequestResult.CANCELED;
+		}
+		
+		Log.i("info", "end download");
+		
+		Log.i("info", "start parsing");
+		Document doc = null;
+		switch (_parserType) {
+		case BOOKING_PAGE:
+			doc = sslJsoup.eraseBefore("<table class=\"timesheet\" cellpadding=\"0\" cellspacing=\"0\">")
+							.eraseAfter("<input type=\"hidden\" name=\"CurrentStep\" value=\"2\">")
+							.parseBodyFragment();
+			if (_canceled) {
 				return RequestResult.CANCELED;
-	        }
-	        
-	        Log.i("info", "end download");
-	        
-	        Log.i("info", "start parsing");
-	        switch (_parserType) {
-			case BOOKING_PAGE:
-				_app.setArrayListScheduleData(parserBooking(doc));
-				break;
-				
-			case DETAIL_PAGE:
-				_app.setCurrentDetailTrip(parserDetail(doc));
-				break;
-				
-			case ORDERS_PAGE:
-				if (doc.select("div.bx-auth-title").size() > 0) {
-					if (!BookingTask.auth(_app, _canceled)) {
-						break;
-					}
-				}
-				
-				_app.setArrayListOrders(parserOrders(doc));
-				break;
-
-			default:
-				break;
 			}
-	        Log.i("info", "end parsing");
-	        
-	        if (_parserType == ParserType.BOOKING_PAGE && _app.getArrayListScheduleData() == null) {
-				return RequestResult.EMPTY_RESPONSE;
+			_app.setArrayListScheduleData(parserBooking(doc));
+			break;
+			
+		case DETAIL_PAGE:
+			doc = sslJsoup.eraseBefore("<h1 class=\"l-indent-bottom\">")
+							.eraseAfter("<div class=\"push\">")
+							.parseBodyFragment();
+			if (_canceled) {
+				return RequestResult.CANCELED;
 			}
+			_app.setCurrentDetailTrip(parserDetail(doc));
+			break;
 			
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-			return RequestResult.CONNECTION_ERROR;
+		default:
+			break;
+		}
+		
+		if (_canceled) {
+			return RequestResult.CANCELED;
+		}
+		
+		Log.i("info", "end parsing");
+		
+		if (_parserType == ParserType.BOOKING_PAGE && _app.getArrayListScheduleData() == null) {
+			return RequestResult.EMPTY_RESPONSE;
 		}
 		
         return RequestResult.SUCCESS;

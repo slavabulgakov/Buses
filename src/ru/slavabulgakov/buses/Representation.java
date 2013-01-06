@@ -84,12 +84,6 @@ public class Representation implements IRepresentation {
 
 	@Override
 	public void onFinishAuthSuccess() {
-		((MyActivity)_currentActivity).hideProgressDialog();
-		_currentActivity.finish();
-		Toast.makeText(_currentActivity, R.string.auth_success, Toast.LENGTH_LONG).show();
-		if (_app.getBookingIsGoing()) {
-			_app.booking();
-		}
 	}
 
 	@Override
@@ -100,14 +94,10 @@ public class Representation implements IRepresentation {
 
 	@Override
 	public void onFinishBookingSuccess() {
-		((MyActivity)_currentActivity).hideProgressDialog();
-		_currentActivity.startActivity(new Intent(_currentActivity, OrderActivity.class));
 	}
 
 	@Override
 	public void onFinishBookingDeny() {
-		((MyActivity)_currentActivity).hideProgressDialog();
-		_currentActivity.startActivity(new Intent(_currentActivity, AuthActivity.class));
 	}
 
 	@Override

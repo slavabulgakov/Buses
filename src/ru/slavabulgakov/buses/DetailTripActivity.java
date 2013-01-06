@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -67,28 +65,11 @@ public class DetailTripActivity extends MyActivity {
 		loadListData(detailTrip.arrayList);
 		
 		
-		Button bookBtn = (Button)findViewById(R.id.detailTripBook);
-		bookBtn.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				MyApplication app = (MyApplication)getApplicationContext();
-				app.booking();
-			}
-		});
-        
         
 //		ListView listView = (ListView)findViewById(R.id.detailTripListView);
 //		DetailTripAdapter adapter = new DetailTripAdapter(this, R.layout.detial_trip_item, detailTrip.arrayList);
 //		listView.setAdapter(adapter);
 		
-		Button backBtn = (Button)findViewById(R.id.detailTripBackBtn);
-		backBtn.setOnClickListener(new OnClickListener() {
-			
-			public void onClick(View v) {
-				finish();
-			}
-		});
 		
 		TextView numberTxt = (TextView)findViewById(R.id.detailTripNumberTxt);
 		numberTxt.setText(detailTrip.number);
